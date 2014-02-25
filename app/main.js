@@ -28,6 +28,7 @@ var _isMobile = isMobile();
 
 var _isEmbed = false;
 var _tornadoes;
+var _subset;
 
 /*
 
@@ -76,30 +77,29 @@ function init() {
 	$("#title").append(TITLE);
 	$("#subtitle").append(BYLINE);	
 
-	var mapDeferred = esri.arcgis.utils.createMap(WEBMAP_ID, "map", {
-		mapOptions: {
-			slider: false,
-			wrapAround180: true,
-			extent:_homeExtent
-		},
-		ignorePopups: false,
-		geometryServiceURL: GEOMETRY_SERVICE_URL
-	});
-	
-	mapDeferred.addCallback(function(response) {	  
+	var serviceTornadoes = new CSVService();
+	serviceTornadoes.process("data/1950-2012_torn_scrubbed.csv");
+	$(serviceTornadoes).bind("complete", function(){
+		var parser = new RecordParser();
+		_tornadoes = parser.getRecs(serviceTornadoes.getLines());
+		$("#whiteOut").fadeOut();
+	});	
 
-		_map = response.map;
+	_map = new esri.Map("map",
+						{
+							basemap:"satellite",
+							center: [-122.45,37.75],
+  							zoom: 3
+						});
 
-		if(_map.loaded){
+	if(_map.loaded){
+		initMap();
+	} else {
+		dojo.connect(_map,"onLoad",function(){
 			initMap();
-		} else {
-			dojo.connect(_map,"onLoad",function(){
-				initMap();
-			});
-		}
-				
-	});
-	
+		});
+	}
+
 }
 
 function initMap() {
@@ -119,13 +119,6 @@ function initMap() {
 		}	
 	}
 	
-	var serviceTornadoes = new CSVService();
-	serviceTornadoes.process("data/1950-2012_torn_scrubbed.csv");
-	$(serviceTornadoes).bind("complete", function(){
-		var parser = new RecordParser();
-		_tornadoes = parser.getRecs(serviceTornadoes.getLines());
-		$("#whiteOut").fadeOut();
-	});	
 	/*
 	
 	use this for layer interactivity
@@ -137,6 +130,30 @@ function initMap() {
 	
 	handleWindowResize();
 	
+}
+
+function doYear(year)
+{
+	_subset = $.grep(_tornadoes, function(n, i){return n.date.split("/")[2] == year});
+	console.log(_subset.length);
+	_map.graphics.clear();
+	var sr = new esri.SpatialReference(4326);
+	$.each(_subset, function(index, value){
+		  var pt = new esri.geometry.Point(value.starting_long, value.starting_lat, sr);
+		  var sms = createSymbol(8, new dojo.Color([255,0,0,0.5]), new dojo.Color([255,255,255,0.5]));
+		  var graphic = new esri.Graphic(pt,sms);
+		  _map.graphics.add(graphic);		
+	});
+}
+
+createSymbol = function(size, rgb, rgbOutline)
+{
+	return new esri.symbol.SimpleMarkerSymbol(
+				esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE, 
+				size,
+				new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, rgbOutline, 1),
+				rgb
+			);	
 }
 
 /*
