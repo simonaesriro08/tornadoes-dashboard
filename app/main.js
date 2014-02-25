@@ -7,8 +7,8 @@ dojo.require("esri.map");
 ***************** begin config section ****************
 *******************************************************/
 
-var TITLE = "This is the title."
-var BYLINE = "This is the byline"
+var TITLE = "Tornadoes"
+var BYLINE = "Let's twist again, like we did last summer."
 var WEBMAP_ID = "caca75ada5f14f1dad84a560db831a50";
 var GEOMETRY_SERVICE_URL = "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer";
 
@@ -83,13 +83,24 @@ function init() {
 		var parser = new RecordParser();
 		_tornadoes = parser.getRecs(serviceTornadoes.getLines());
 		$("#whiteOut").fadeOut();
+		doYear($("select option:selected").eq(0).html().slice(2));
 	});	
+	
+	for (var year = 1950; year < 2012; year++)
+	{
+		$("select").append("<option>"+year+"</option>");
+	}
+	
+	$("select").change(function(e) {
+		doYear($("select option:selected").eq(0).html().slice(2));
+    });
 
 	_map = new esri.Map("map",
 						{
 							basemap:"satellite",
 							center: [-122.45,37.75],
-  							zoom: 3
+  							zoom: 3,
+							slider: false
 						});
 
 	if(_map.loaded){
@@ -140,7 +151,7 @@ function doYear(year)
 	var sr = new esri.SpatialReference(4326);
 	$.each(_subset, function(index, value){
 		  var pt = new esri.geometry.Point(value.starting_long, value.starting_lat, sr);
-		  var sms = createSymbol(8, new dojo.Color([255,0,0,0.5]), new dojo.Color([255,255,255,0.5]));
+		  var sms = createSymbol(8, new dojo.Color([255,0,0,0.7]), new dojo.Color([255,255,255,0.5]));
 		  var graphic = new esri.Graphic(pt,sms);
 		  _map.graphics.add(graphic);		
 	});
