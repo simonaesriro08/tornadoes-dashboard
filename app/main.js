@@ -27,6 +27,7 @@ var _homeExtent; // set this in init() if desired; otherwise, it will
 var _isMobile = isMobile();
 
 var _isEmbed = false;
+var _tornadoes;
 
 /*
 
@@ -118,6 +119,13 @@ function initMap() {
 		}	
 	}
 	
+	var serviceTornadoes = new CSVService();
+	serviceTornadoes.process("data/1950-2012_torn_scrubbed.csv");
+	$(serviceTornadoes).bind("complete", function(){
+		var parser = new RecordParser();
+		_tornadoes = parser.getRecs(serviceTornadoes.getLines());
+		$("#whiteOut").fadeOut();
+	});	
 	/*
 	
 	use this for layer interactivity
@@ -128,7 +136,6 @@ function initMap() {
 	*/
 	
 	handleWindowResize();
-	$("#whiteOut").fadeOut();
 	
 }
 
