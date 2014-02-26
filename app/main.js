@@ -77,15 +77,6 @@ function init() {
 	$("#title").append(TITLE);
 	$("#subtitle").append(BYLINE);	
 
-	var serviceTornadoes = new CSVService();
-	serviceTornadoes.process("data/1950-2012_torn_scrubbed.csv");
-	$(serviceTornadoes).bind("complete", function(){
-		var parser = new RecordParser();
-		_tornadoes = parser.getRecs(serviceTornadoes.getLines());
-		$("#whiteOut").fadeOut();
-		doYear($("select option:selected").eq(0).html().slice(2));
-	});	
-	
 	for (var year = 1950; year < 2012; year++)
 	{
 		$("select").append("<option>"+year+"</option>");
@@ -94,14 +85,33 @@ function init() {
 	$("select").change(function(e) {
 		doYear($("select option:selected").eq(0).html().slice(2));
     });
+	
+	$.ajax({
+	  type: 'GET',
+	  url: "data/1950-2012_torn_scrubbed.csv",
+	  cache: false,
+	  success: function(text) {	
+		  $("#waitMsg").html("Unpacking...");
+		  setTimeout(function(){
+			var serviceTornadoes = new CSVService();
+			serviceTornadoes.process(text);
+			var parser = new RecordParser();
+			_tornadoes = parser.getRecs(serviceTornadoes.getLines());
+			$("#whiteOut").fadeOut();
+			doYear($("select option:selected").eq(0).html().slice(2));
+		  }, 100);
+	  }
+	});	
 
 	_map = new esri.Map("map",
 						{
 							basemap:"satellite",
-							center: [-122.45,37.75],
-  							zoom: 3,
+							center: [-101.37, 39.32],
+  							zoom: 4,
 							slider: false
 						});
+						
+	_map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer"));
 
 	if(_map.loaded){
 		initMap();
