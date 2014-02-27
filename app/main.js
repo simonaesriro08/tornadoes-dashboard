@@ -9,8 +9,6 @@ dojo.require("esri.map");
 
 var TITLE = "Tornadoes"
 var BYLINE = "Let's twist again, like we did last summer."
-var WEBMAP_ID = "caca75ada5f14f1dad84a560db831a50";
-var GEOMETRY_SERVICE_URL = "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer";
 
 /******************************************************
 ***************** end config section ******************
@@ -20,6 +18,8 @@ var _map;
 
 var _dojoReady = false;
 var _jqueryReady = false;
+
+var _isIE = (navigator.appVersion.indexOf("MSIE") > -1);
 
 var _homeExtent; // set this in init() if desired; otherwise, it will 
 				 // be the default extent of the web map;
@@ -36,17 +36,6 @@ var _layer3;
 var _layer2;
 var _layer1;
 var _layer0;
-
-/*
-
-might need this if you're using icons.
-
-var _lutBallIconSpecs = {
-	tiny:new IconSpecs(24,24,12,12),
-	medium:new IconSpecs(30,30,15,15),
-	large:new IconSpecs(30,30,15,15)
-}
-*/
 
 dojo.addOnLoad(function() {_dojoReady = true;init()});
 jQuery(document).ready(function() {_jqueryReady = true;init()});
@@ -189,7 +178,7 @@ function doYear(year)
 		  	sym = createPictureMarkerSymbol(value.f_scale);
 		  else
 		  	sym = createSimpleMarkerSymbol(8, new dojo.Color([153,153,92,1]), new dojo.Color([255,255,255,1]));
-		  var graphic = new esri.Graphic(pt, sym);
+		  var graphic = new esri.Graphic(pt, sym, value);
 		  if (value.f_scale == 5) _layer5.add(graphic);		
 		  else if (value.f_scale == 4) _layer4.add(graphic);		
 		  else if (value.f_scale == 3) _layer3.add(graphic);		
@@ -224,22 +213,14 @@ function layer_onMouseOver(event)
 	if (_isMobile) return;
 	var graphic = event.graphic;
 	_map.setMapCursor("pointer");
-	/*
-	if ($.inArray(graphic, _selected) == -1) {
-	*/
 	if (graphic.symbol.url)
 		graphic.setSymbol(graphic.symbol.setWidth(graphic.symbol.width+4).setHeight(graphic.symbol.height+4));
 	else 
 		graphic.setSymbol(graphic.symbol.setSize(graphic.symbol.size+4));
-	/*
-	}
-	*/
 	if (!_isIE) moveGraphicToFront(graphic);	
-	/*
-	$("#hoverInfo").html("<b>"+graphic.attributes.getLanguage()+"</b>"+"<p>"+graphic.attributes.getRegion());
+	$("#hoverInfo").html(graphic.attributes.date);
 	var pt = _map.toScreen(graphic.geometry);
 	hoverInfoPos(pt.x,pt.y);	
-	*/
 }
 
 
@@ -247,17 +228,11 @@ function layer_onMouseOut(event)
 {
 	var graphic = event.graphic;
 	_map.setMapCursor("default");
-	//$("#hoverInfo").hide();
-	/*
-	if ($.inArray(graphic, _selected) == -1) {
-	*/
+	$("#hoverInfo").hide();
 	if (graphic.symbol.url)
 		graphic.setSymbol(graphic.symbol.setWidth(graphic.symbol.width-4).setHeight(graphic.symbol.height-4));
 	else 
 		graphic.setSymbol(graphic.symbol.setSize(graphic.symbol.size-4));
-	/*
-	}
-	*/
 }
 
 /*
@@ -273,15 +248,8 @@ function layerOV_onClick(event)
 	scrollToPage($.inArray($.grep($("#listThumbs").children("li"),function(n,i){return n.value == _languageID})[0], $("#listThumbs").children("li")));	
 }
 
-function createIconMarker(iconPath, spec) 
-{
-	return new esri.symbol.PictureMarkerSymbol(iconPath, spec.getWidth(), spec.getHeight()); 
-}
+*/
 
-function resizeSymbol(symbol, spec)
-{
-	return symbol.setWidth(spec.getWidth()).setHeight(spec.getHeight())	
-}
 
 function moveGraphicToFront(graphic)
 {
@@ -297,15 +265,13 @@ function hoverInfoPos(x,y){
 		$("#hoverInfo").css("left",x-25-($("#hoverInfo").width()));
 	}
 	if (y >= ($("#hoverInfo").height())+50){
-		$("#hoverInfo").css("top",y-35-($("#hoverInfo").height()));
+		$("#hoverInfo").css("top",y-20-($("#hoverInfo").height()));
 	}
 	else{
 		$("#hoverInfo").css("top",y-15+($("#hoverInfo").height()));
 	}
 	$("#hoverInfo").show();
 }
-
-*/
 
 
 function handleWindowResize() {
