@@ -30,6 +30,13 @@ var _isEmbed = false;
 var _tornadoes;
 var _subset;
 
+var _layer5;
+var _layer4;
+var _layer3;
+var _layer2;
+var _layer1;
+var _layer0;
+
 /*
 
 might need this if you're using icons.
@@ -105,13 +112,25 @@ function init() {
 
 	_map = new esri.Map("map",
 						{
-							basemap:"satellite",
+							basemap:"gray",
 							center: [-101.37, 39.32],
   							zoom: 4,
 							slider: false
 						});
-						
-	_map.addLayer(new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer"));
+	
+	_layer4 = new esri.layers.GraphicsLayer();
+	_layer5 = new esri.layers.GraphicsLayer();
+	_layer3 = new esri.layers.GraphicsLayer();
+	_layer2 = new esri.layers.GraphicsLayer();
+	_layer1 = new esri.layers.GraphicsLayer();
+	_layer0 = new esri.layers.GraphicsLayer();
+	
+	_map.addLayer(_layer0);
+	_map.addLayer(_layer1);
+	_map.addLayer(_layer2);
+	_map.addLayer(_layer3);
+	_map.addLayer(_layer4);
+	_map.addLayer(_layer5);
 
 	if(_map.loaded){
 		initMap();
@@ -156,18 +175,41 @@ function initMap() {
 function doYear(year)
 {
 	_subset = $.grep(_tornadoes, function(n, i){return n.date.split("/")[2] == year});
-	console.log(_subset.length);
-	_map.graphics.clear();
+	_layer5.clear();
+	_layer4.clear();
+	_layer3.clear();
+	_layer2.clear();
+	_layer1.clear();
+	_layer0.clear();
 	var sr = new esri.SpatialReference(4326);
 	$.each(_subset, function(index, value){
 		  var pt = new esri.geometry.Point(value.starting_long, value.starting_lat, sr);
-		  var sms = createSymbol(8, new dojo.Color([255,0,0,0.7]), new dojo.Color([255,255,255,0.5]));
-		  var graphic = new esri.Graphic(pt,sms);
-		  _map.graphics.add(graphic);		
+		  var sym;
+		  if (value.f_scale > 0)
+		  	sym = createPictureMarkerSymbol(value.f_scale);
+		  else
+		  	sym = createSimpleMarkerSymbol(8, new dojo.Color([153,153,92,1]), new dojo.Color([255,255,255,1]));
+		  var graphic = new esri.Graphic(pt, sym);
+		  if (value.f_scale == 5) _layer5.add(graphic);		
+		  else if (value.f_scale == 4) _layer4.add(graphic);		
+		  else if (value.f_scale == 3) _layer3.add(graphic);		
+		  else if (value.f_scale == 2) _layer2.add(graphic);		
+		  else if (value.f_scale == 1) _layer1.add(graphic);		
+		  else _layer0.add(graphic);
 	});
 }
 
-createSymbol = function(size, rgb, rgbOutline)
+createPictureMarkerSymbol = function(score)
+{
+	var specs = {1:27, 2:27, 3:27,4:32,5:40}
+	return new esri.symbol.PictureMarkerSymbol(
+				"resources/images/marker-X.png".replace("X", score), 
+				specs[score],
+				specs[score]
+			);	
+}
+
+createSimpleMarkerSymbol = function(size, rgb, rgbOutline)
 {
 	return new esri.symbol.SimpleMarkerSymbol(
 				esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE, 
