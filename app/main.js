@@ -113,7 +113,7 @@ function init() {
 	_map = new esri.Map("map",
 						{
 							basemap:"gray",
-							center: [-101.37, 39.32],
+							center: [-96.19, 34.5],
   							zoom: 4,
 							slider: false
 						});
@@ -131,6 +131,14 @@ function init() {
 	_map.addLayer(_layer3);
 	_map.addLayer(_layer4);
 	_map.addLayer(_layer5);
+
+
+	$.each([_layer0, _layer1, _layer2, _layer3, _layer4, _layer5], function(index, value){
+		dojo.connect(value, "onMouseOver", layer_onMouseOver);
+		dojo.connect(value, "onMouseOut", layer_onMouseOut);
+		//dojo.connect(value, "onClick", layer_onClick);		
+	});
+	
 
 	if(_map.loaded){
 		initMap();
@@ -158,16 +166,8 @@ function initMap() {
 			},500);
 		}	
 	}
-	
-	/*
-	
-	use this for layer interactivity
-	
-	dojo.connect(_layerOV, "onMouseOver", layerOV_onMouseOver);
-	dojo.connect(_layerOV, "onMouseOut", layerOV_onMouseOut);
-	dojo.connect(_layerOV, "onClick", layerOV_onClick);		
-	*/
-	
+
+
 	handleWindowResize();
 	
 }
@@ -219,34 +219,48 @@ createSimpleMarkerSymbol = function(size, rgb, rgbOutline)
 			);	
 }
 
-/*
-
-sample layer event code.
-
-function layerOV_onMouseOver(event) 
+function layer_onMouseOver(event) 
 {
 	if (_isMobile) return;
 	var graphic = event.graphic;
 	_map.setMapCursor("pointer");
+	/*
 	if ($.inArray(graphic, _selected) == -1) {
-		graphic.setSymbol(resizeSymbol(graphic.symbol, _lutBallIconSpecs.medium));
+	*/
+	if (graphic.symbol.url)
+		graphic.setSymbol(graphic.symbol.setWidth(graphic.symbol.width+4).setHeight(graphic.symbol.height+4));
+	else 
+		graphic.setSymbol(graphic.symbol.setSize(graphic.symbol.size+4));
+	/*
 	}
+	*/
 	if (!_isIE) moveGraphicToFront(graphic);	
+	/*
 	$("#hoverInfo").html("<b>"+graphic.attributes.getLanguage()+"</b>"+"<p>"+graphic.attributes.getRegion());
 	var pt = _map.toScreen(graphic.geometry);
 	hoverInfoPos(pt.x,pt.y);	
+	*/
 }
 
 
-function layerOV_onMouseOut(event) 
+function layer_onMouseOut(event) 
 {
 	var graphic = event.graphic;
 	_map.setMapCursor("default");
-	$("#hoverInfo").hide();
+	//$("#hoverInfo").hide();
+	/*
 	if ($.inArray(graphic, _selected) == -1) {
-		graphic.setSymbol(resizeSymbol(graphic.symbol, _lutBallIconSpecs.tiny));
+	*/
+	if (graphic.symbol.url)
+		graphic.setSymbol(graphic.symbol.setWidth(graphic.symbol.width-4).setHeight(graphic.symbol.height-4));
+	else 
+		graphic.setSymbol(graphic.symbol.setSize(graphic.symbol.size-4));
+	/*
 	}
+	*/
 }
+
+/*
 
 
 function layerOV_onClick(event) 
