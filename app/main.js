@@ -1,5 +1,3 @@
-dojo.require("dijit.layout.BorderContainer");
-dojo.require("dijit.layout.ContentPane");
 dojo.require("esri.arcgis.utils");
 dojo.require("esri.map");
 
@@ -101,8 +99,7 @@ function init() {
 			  setTimeout(function(){
 				var serviceTornadoes = new CSVService();
 				serviceTornadoes.process(text);
-				var parser = new RecordParser();
-				_tornadoes = parser.getRecs(serviceTornadoes.getLines());
+				_tornadoes = new RecordParser().getRecs(serviceTornadoes.getLines());
 				var diff = (new Date() - time1) / 1000;
 				$("#loadTime").html("Load time: <b>"+diff+"</b> seconds");
 				$("#whiteOut").fadeOut();
