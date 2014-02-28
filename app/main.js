@@ -42,6 +42,8 @@ var _layerPath2;
 var _layerPath1;
 var _layerPath0;
 
+var _loadTime;
+
 dojo.addOnLoad(function() {_dojoReady = true;init()});
 jQuery(document).ready(function() {_jqueryReady = true;init()});
 
@@ -100,8 +102,8 @@ function init() {
 				var serviceTornadoes = new CSVService();
 				serviceTornadoes.process(text);
 				_tornadoes = new RecordParser().getRecs(serviceTornadoes.getLines());
-				var diff = (new Date() - time1) / 1000;
-				$("#loadTime").html("Load time: <b>"+diff+"</b> seconds");
+				_loadTime = (new Date() - time1) / 1000;
+				$("#loadTime").html("Load time: <b>"+_loadTime+"</b> seconds");
 				$("#whiteOut").fadeOut();
 				finishInit();
 			  }, 100);
