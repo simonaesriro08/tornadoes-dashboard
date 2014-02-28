@@ -103,7 +103,7 @@ function init() {
 				var diff = (new Date() - time1) / 1000;
 				$("#loadTime").html("Load time: <b>"+diff+"</b> seconds");
 				$("#whiteOut").fadeOut();
-				doYear($("select option:selected").eq(0).html().slice(2));
+				finishInit();
 			  }, 100);
 		  });
 	  }
@@ -160,16 +160,22 @@ function init() {
 	
 
 	if(_map.loaded){
-		initMap();
+		finishInit();
 	} else {
 		dojo.connect(_map,"onLoad",function(){
-			initMap();
+			finishInit();
 		});
 	}
 
 }
 
-function initMap() {
+function finishInit() {
+	
+	if (!_map) return;
+	if (!_map.loaded) return;
+	if (!_tornadoes) return;
+	
+	doYear($("select option:selected").eq(0).html().slice(2));	
 	
 	// if _homeExtent hasn't been set, then default to the initial extent
 	// of the web map.  On the other hand, if it HAS been set AND we're using
@@ -185,7 +191,6 @@ function initMap() {
 			},500);
 		}	
 	}
-
 
 	handleWindowResize();
 	
