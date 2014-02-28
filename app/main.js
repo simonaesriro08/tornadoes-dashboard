@@ -81,21 +81,27 @@ function init() {
 	$("select").change(function(e) {
 		doYear($("select option:selected").eq(0).html().slice(2));
     });
+
+	var time1 = new Date();
 	
 	$.ajax({
 	  type: 'GET',
 	  url: "data/1950-2012_torn_scrubbed.csv",
 	  cache: false,
 	  success: function(text) {	
-		  $("#waitMsg").html("Unpacking...");
-		  setTimeout(function(){
-			var serviceTornadoes = new CSVService();
-			serviceTornadoes.process(text);
-			var parser = new RecordParser();
-			_tornadoes = parser.getRecs(serviceTornadoes.getLines());
-			$("#whiteOut").fadeOut();
-			doYear($("select option:selected").eq(0).html().slice(2));
-		  }, 100);
+	  	  $("#loader").slideUp(function(){
+			  $("#waitMsg").html("Unpacking (like, 3 seconds, tops)...");
+			  setTimeout(function(){
+				var serviceTornadoes = new CSVService();
+				serviceTornadoes.process(text);
+				var parser = new RecordParser();
+				_tornadoes = parser.getRecs(serviceTornadoes.getLines());
+				var diff = (new Date() - time1) / 1000;
+				$("#loadTime").html("Load time: <b>"+diff+"</b> seconds");
+				$("#whiteOut").fadeOut();
+				doYear($("select option:selected").eq(0).html().slice(2));
+			  }, 100);
+		  });
 	  }
 	});	
 
@@ -106,7 +112,7 @@ function init() {
   							zoom: 4,
 							slider: false
 						});
-	
+						
 	_layer4 = new esri.layers.GraphicsLayer();
 	_layer5 = new esri.layers.GraphicsLayer();
 	_layer3 = new esri.layers.GraphicsLayer();
