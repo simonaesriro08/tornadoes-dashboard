@@ -118,17 +118,29 @@
       </div>
     </div>
     
-    <div id="map">
-        <div id="zoomToggle">
-            <img id="zoomIn" src="resources/images/ZoomLight_01.png">
-            <img id="zoomExtent" src="resources/images/ZoomHome.png">
-            <img id="zoomOut" src="resources/images/ZoomLight_03.png">
-        </div><!--?zoomToggle-->
-        <select style="position:absolute;z-index:100;left:80px;top:20px;font-size:20px;font-family:Arial, Helvetica, sans-serif"></select>
-        <div id="hoverInfo"></div>
-	    <div id="loadTime" style="position:absolute;top:20px;right:20px;background-color:white;z-index:103;padding:10px"></div>
-    </div><!--mapPane-->
-    
+    <div id="content-container">
+        <div id="side-strip">
+            <div style="font-size:22px;color:white">Explore Tornadoes</div>
+            <br>
+            <p>
+            Pan and zoom to find tornado tracks; tap a track for details about tornadoes between 1950 and 2013.
+            <p>
+            <div style="width:100%;text-align:center;padding-top:20px">
+            	<div><img id="arrowUp" class="arrow" src="resources/images/arrow_up.png"/></div>
+                <div id="year" style="padding-top:10px;padding-bottom:20px;font-size:60px;color:#058eb8;font-family:Georgia, 'Times New Roman', Times, serif">1950</div>
+            	<div><img id="arrowDown" class="arrow" src="resources/images/arrow_down.png"/></div>       
+            </div>
+        </div>
+        <div id="map">
+            <div id="zoomToggle">
+                <img id="zoomIn" src="resources/images/ZoomLight_01.png">
+                <img id="zoomExtent" src="resources/images/ZoomHome.png">
+                <img id="zoomOut" src="resources/images/ZoomLight_03.png">
+            </div><!--?zoomToggle-->
+            <div id="hoverInfo"></div>
+            <div id="loadTime" style="position:absolute;top:20px;right:20px;background-color:white;z-index:103;padding:10px"></div>
+        </div><!--mapPane-->
+    </div>
    
     <div id="whiteOut" style="position:absolute;width:100%;height:100%;background-color:#FFF;z-index:2000;top:0px">
     	<div id="loaderFrame">

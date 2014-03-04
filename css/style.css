@@ -169,3 +169,21 @@ a:hover{
 	padding-top:20px;
 }
 
+#content-container {
+	width:100%;
+	position:relative;
+}
+
+#side-strip {
+	width:200px;
+	height:100%;
+	float:left;
+	background-color:black;
+	color:#bababa;
+	font-family:Arial, Helvetica, sans-serif;
+	padding:20px;
+}
+
+.arrow {
+	cursor:pointer;
+}

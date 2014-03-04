@@ -66,6 +66,7 @@ function init() {
 	// jQuery event assignment
 	
 	$(this).resize(handleWindowResize);
+	handleWindowResize();
 	
 	$("#zoomIn").click(function(e) {
         _map.setLevel(_map.getLevel()+1);
@@ -80,13 +81,22 @@ function init() {
 	$("#title").append(TITLE);
 	$("#subtitle").append(BYLINE);	
 
-	for (var year = 1950; year < 2012; year++)
-	{
-		$("select").append("<option>"+year+"</option>");
-	}
+	$("#arrowUp").click(function(e) {
+        var year = parseInt($("#year").html());
+		if (year != 1950) {
+			year--;
+			$("#year").html(year);
+			doYear(year);
+		}
+    });
 	
-	$("select").change(function(e) {
-		doYear($("select option:selected").eq(0).html().slice(2));
+	$("#arrowDown").click(function(e) {
+        var year = parseInt($("#year").html());
+		if (year != 2011) {
+			year++;
+			$("#year").html(year);
+			doYear(year);
+		}
     });
 
 	var time1 = new Date();
@@ -114,8 +124,6 @@ function init() {
 	_map = new esri.Map("map",
 						{
 							basemap:"gray",
-							center: [-96.19, 34.5],
-  							zoom: 4,
 							slider: false
 						});
 						
@@ -177,7 +185,7 @@ function finishInit() {
 	if (!_map.loaded) return;
 	if (!_tornadoes) return;
 	
-	doYear($("select option:selected").eq(0).html().slice(2));	
+	doYear($("#year").html());	
 	
 	// if _homeExtent hasn't been set, then default to the initial extent
 	// of the web map.  On the other hand, if it HAS been set AND we're using
@@ -194,12 +202,13 @@ function finishInit() {
 		}	
 	}
 
-	handleWindowResize();
+	_map.centerAndZoom([-98.27, 38.73], 4);	
 	
 }
 
 function doYear(year)
 {
+	year = year.toString().slice(2);
 	_subset = $.grep(_tornadoes, function(n, i){return n.date.split("/")[2] == year});
 	_layer5.clear();
 	_layer4.clear();
@@ -346,10 +355,16 @@ function hoverInfoPos(x,y){
 
 
 function handleWindowResize() {
+	
 	if ((($("body").height() <= 500) || ($("body").width() <= 800)) || _isEmbed) $("#header").height(0);
 	else $("#header").height(115);
 	
+	$("#content-container").height($("body").height() - $("#header").height());
+	
+	$("#map").css("left", $("#side-strip").outerWidth());
+	$("#map").width($("body").width() - $("#side-strip").outerWidth());
 	$("#map").height($("body").height() - $("#header").height());
-	$("#map").width($("body").width());
-	_map.resize();
+	
+	if (_map) _map.resize();
+	
 }
