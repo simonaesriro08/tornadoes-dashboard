@@ -187,3 +187,15 @@ a:hover{
 .arrow {
 	cursor:pointer;
 }
+
+#year {
+	cursor:pointer;
+	padding-left:30px;
+	padding-top:10px;
+	padding-bottom:20px;
+	font-size:60px;
+	color:#058eb8;
+	font-family:Georgia, 'Times New Roman', Times, serif;
+	background-color:black; 
+	border:none;
+}
