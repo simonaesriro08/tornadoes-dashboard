@@ -418,3 +418,14 @@ function handleWindowResize() {
 	if (_map) _map.resize();
 	
 }
+
+function test()
+{
+	var time1 = new Date();
+	var i = 0;
+	var extent = _map.extent;
+	$.each(_tornadoes, function(index, value){
+		if (extent.contains(new esri.geometry.Point(value.starting_long, value.starting_lat))) i++;
+	});
+	console.log(i.toString()+" records in "+(new Date() - time1) / 1000);
+}
