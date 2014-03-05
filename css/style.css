@@ -147,7 +147,7 @@ a:hover{
 
 #zoomToggle{
 	position:absolute;
-	left:15px;
+	right:15px;
 	top:15px;
 	width:32px;
 	z-index:2;
