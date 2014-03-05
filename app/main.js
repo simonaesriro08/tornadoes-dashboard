@@ -9,6 +9,9 @@ var TITLE = "Tornadoes"
 var BYLINE = "Let's twist again, like we did last summer."
 var FEATURE_SERVICE_URL = "http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/rest/services/Tornados_Points/FeatureServer/0";
 
+var FIELDNAME_DATE = "Date";
+var FIELDNAME_FUJITASCALE = "F_Scale";
+
 /******************************************************
 ***************** end config section ******************
 *******************************************************/
@@ -352,11 +355,20 @@ function layer_onClick(event)
 
 	var queryTask = new esri.tasks.QueryTask(FEATURE_SERVICE_URL);
 	queryTask.execute(query, function(result){
-		console.log(result.features[0]);
+		var atts = result.features[0].attributes;
+		$("#tornadoDateValue").html(scrubDate(atts[FIELDNAME_DATE]));
+		$("#fujitaScaleValue").html(atts[FIELDNAME_FUJITASCALE]);
 		slideOut();
 		_map.centerAt(graphic.geometry);
 	});
 	
+}
+
+function scrubDate(val)
+{
+	val = new Date(val);
+	val.setDate(val.getDate()+1)
+	return val.toLocaleDateString();
 }
 
 function slideOut()

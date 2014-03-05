@@ -225,3 +225,14 @@ a:hover{
 .esriPopup .actionsPane {
 	border-radius:0px;
 }
+
+#tornadoDateValue {
+	font-size:18px;
+	color:white;
+}
+
+#fujitaScaleValue {
+	color: #02acab;
+	font-family:Georgia, 'Times New Roman', Times, serif;
+	font-size:60px;	
+}
