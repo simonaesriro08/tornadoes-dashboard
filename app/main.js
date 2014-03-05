@@ -88,11 +88,13 @@ function init() {
 	}
 	
 	$("#year").change(function(e) {
+		_map.infoWindow.hide();
 		retract();
 		doYear($("#year option:selected").eq(0).html());
 	});
 
 	$("#arrowUp").click(function(e) {
+		_map.infoWindow.hide();		
 		retract();
         var year = parseInt($("#year").val());
 		if (year != 1950) {
@@ -103,6 +105,7 @@ function init() {
     });
 	
 	$("#arrowDown").click(function(e) {
+		_map.infoWindow.hide();		
 		retract();
         var year = parseInt($("#year").val());
 		if (year != 2011) {
@@ -182,7 +185,10 @@ function init() {
 	});
 	
 	dojo.connect(_map, 'onClick', function(event){
-		if (!event.graphic) retract();
+		if (!event.graphic) {
+			_map.infoWindow.hide();			
+			retract();
+		}
 	});		
 
 	if(_map.loaded){
