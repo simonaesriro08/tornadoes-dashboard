@@ -7,6 +7,7 @@ dojo.require("esri.map");
 
 var TITLE = "Tornadoes"
 var BYLINE = "Let's twist again, like we did last summer."
+var FEATURE_SERVICE_URL = "http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/rest/services/Tornados_Points/FeatureServer/0";
 
 /******************************************************
 ***************** end config section ******************
@@ -87,10 +88,12 @@ function init() {
 	}
 	
 	$("#year").change(function(e) {
+		retract();
 		doYear($("#year option:selected").eq(0).html());
 	});
 
 	$("#arrowUp").click(function(e) {
+		retract();
         var year = parseInt($("#year").val());
 		if (year != 1950) {
 			year--;
@@ -100,6 +103,7 @@ function init() {
     });
 	
 	$("#arrowDown").click(function(e) {
+		retract();
         var year = parseInt($("#year").val());
 		if (year != 2011) {
 			year++;
@@ -174,9 +178,12 @@ function init() {
 	$.each([_layer0, _layer1, _layer2, _layer3, _layer4, _layer5], function(index, value){
 		dojo.connect(value, "onMouseOver", layer_onMouseOver);
 		dojo.connect(value, "onMouseOut", layer_onMouseOut);
-		//dojo.connect(value, "onClick", layer_onClick);		
+		dojo.connect(value, "onClick", layer_onClick);		
 	});
 	
+	dojo.connect(_map, 'onClick', function(event){
+		if (!event.graphic) retract();
+	});		
 
 	if(_map.loaded){
 		finishInit();
@@ -324,21 +331,37 @@ function layer_onMouseOut(event)
 		graphic.setSymbol(graphic.symbol.setSize(graphic.symbol.size-4));
 }
 
-/*
-
-
-function layerOV_onClick(event) 
+function layer_onClick(event) 
 {
+	_map.infoWindow.hide();
 	$("#hoverInfo").hide();
 	var graphic = event.graphic;
-	_languageID = graphic.attributes.getLanguageID();
-	$("#selectLanguage").val(_languageID);
-	changeState(STATE_SELECTION_OVERVIEW);
-	scrollToPage($.inArray($.grep($("#listThumbs").children("li"),function(n,i){return n.value == _languageID})[0], $("#listThumbs").children("li")));	
+	_map.infoWindow.setContent("selection");
+	_map.infoWindow.show(graphic.geometry);
+	
+	var query = new esri.tasks.Query();
+	query.where = "OBID = "+graphic.attributes.obid;
+	query.returnGeometry = true;
+	query.outFields = ["*"];
+
+	var queryTask = new esri.tasks.QueryTask(FEATURE_SERVICE_URL);
+	queryTask.execute(query, function(result){
+		console.log(result.features[0]);
+		slideOut();
+		_map.centerAt(graphic.geometry);
+	});
+	
 }
 
-*/
+function slideOut()
+{
+	$("#info-strip").animate({left: $("#side-strip").outerWidth()});
+}
 
+function retract()
+{
+	$("#info-strip").animate({left: 0});
+}
 
 function moveGraphicToFront(graphic)
 {
