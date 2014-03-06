@@ -67,7 +67,7 @@ function init() {
 			}
 		}
 	}
-
+	
 	var arrYears = [];
 	for (var year = 1980; year < 2012; year++)
 	{
@@ -191,29 +191,20 @@ function finishInit() {
 	if (!_tornadoes) return;
 	
 	doYear(_barChart.getActiveYear());	
+	$("#year").html(_barChart.getActiveYear());
 	
-	// if _homeExtent hasn't been set, then default to the initial extent
-	// of the web map.  On the other hand, if it HAS been set AND we're using
-	// the embed option, we need to reset the extent (because the map dimensions
-	// have been changed on the fly).
-
-	if (!_homeExtent) {
-		_homeExtent = _map.extent;
-	} else {
-		if (_isEmbed) {
-			setTimeout(function(){
-				_map.setExtent(_homeExtent)
-			},500);
-		}	
-	}
-
-	_map.centerAndZoom([-98.27, 38.73], 4);	
+	_map.centerAndZoom([-98.27, 38.73], 4);
+	
+	setTimeout(function(){_homeExtent = _map.extent}, 1000);
 	
 }
 
 function onBarChartSelect()
 {
+	_map.infoWindow.hide();
+	retract();
 	doYear(_barChart.getActiveYear());
+	$("#year").html(_barChart.getActiveYear());	
 }
 
 function doYear(year)

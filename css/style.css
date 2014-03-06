@@ -203,8 +203,6 @@ a:hover{
 }
 
 #year {
-	padding-left:30px;
-	padding-top:10px;
 	padding-bottom:20px;
 	font-size:60px;
 	color:#058eb8;
@@ -272,7 +270,7 @@ a:hover{
 }
 
 .barChart .bar.active{
-	background-color:#0033CC;
+	background-color:#058eb8;
 }
 
 /* end bar chart */
