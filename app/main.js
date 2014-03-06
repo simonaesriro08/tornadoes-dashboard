@@ -192,8 +192,13 @@ function init() {
 			_map.infoWindow.hide();			
 			retract();
 		}
-	});		
+	});
+	
+	dojo.connect(_map, "onExtentChange", function(event) {
+		test();
+	})
 
+		
 	if(_map.loaded){
 		finishInit();
 	} else {
@@ -422,10 +427,16 @@ function handleWindowResize() {
 function test()
 {
 	var time1 = new Date();
-	var i = 0;
 	var extent = _map.extent;
+	var hash = {};
+	var year;
 	$.each(_tornadoes, function(index, value){
-		if (extent.contains(new esri.geometry.Point(value.starting_long, value.starting_lat))) i++;
+		if (extent.contains(new esri.geometry.Point(value.starting_long, value.starting_lat))) {
+			year = value.date.split("/")[2];
+			year = (year >= 50 ? "19" : "20") + year;
+			if (hash[year]) hash[year] = hash[year] + 1;
+			else hash[year] = 1;
+		}
 	});
-	console.log(i.toString()+" records in "+(new Date() - time1) / 1000);
+	console.log(hash);
 }
