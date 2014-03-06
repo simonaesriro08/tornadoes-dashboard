@@ -34,7 +34,7 @@ function BarChart(div, years)
 		$(".barChart .bar").css("top", 2);
 	}
 	
-	this.setValues() 
+	this.setValues = function() 
 	{
 	}
 	
