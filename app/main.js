@@ -17,6 +17,7 @@ var FIELDNAME_FUJITASCALE = "F_Scale";
 *******************************************************/
 
 var _map;
+var _barChart;
 
 var _dojoReady = false;
 var _jqueryReady = false;
@@ -66,6 +67,13 @@ function init() {
 			}
 		}
 	}
+
+	var arrYears = [];
+	for (var year = 1980; year < 2012; year++)
+	{
+		arrYears.push(year);
+	}	
+	_barChart = new BarChart($(".barChart").eq(0), arrYears);
 	
 	// jQuery event assignment
 	
@@ -387,6 +395,7 @@ function handleWindowResize() {
 	$("#map").width($("body").width() - $("#side-strip").outerWidth());
 	$("#map").height($("body").height() - $("#header").height());
 	
+	_barChart.resize();
 	if (_map) _map.resize();
 	
 }

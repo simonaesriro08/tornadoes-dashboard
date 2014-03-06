@@ -96,6 +96,8 @@
 <script type="text/javascript" src="app/main.js"></script>
 <script type="text/javascript" src="app/utils/CSVService.js"></script>
 <script type="text/javascript" src="app/utils/RecordParser.js"></script>
+<script type="text/javascript" src="app/BarChart.js"></script>
+
 
 </head>
 
@@ -121,10 +123,12 @@
     <div id="content-container">
         <div id="side-strip">
             <div style="font-size:22px;color:white">Explore Tornadoes</div>
-            <br>
+            <br />
             <p>
             Pan and zoom to find tornado tracks; tap a track for details about tornadoes between 1950 and 2013.
             <p>
+            <br />
+            <div class="barChart"></div>
         </div>
         <div id="info-strip">
         	<div id="tornadoDateValue">May 23, 2011</div>

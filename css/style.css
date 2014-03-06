@@ -202,12 +202,7 @@ a:hover{
 	border-left-width:thin;
 }
 
-.arrow {
-	cursor:pointer;
-}
-
 #year {
-	cursor:pointer;
 	padding-left:30px;
 	padding-top:10px;
 	padding-bottom:20px;
@@ -216,14 +211,6 @@ a:hover{
 	font-family:Georgia, 'Times New Roman', Times, serif;
 	background-color:black; 
 	border:none;
-}
-
-.esriPopup .sizer {
-	width: 75px;
-}
-
-.esriPopup .actionsPane {
-	border-radius:0px;
 }
 
 #tornadoDateValue {
@@ -236,3 +223,53 @@ a:hover{
 	font-family:Georgia, 'Times New Roman', Times, serif;
 	font-size:60px;	
 }
+
+.esriPopup .sizer {
+	width: 75px;
+}
+
+.esriPopup .actionsPane {
+	border-radius:0px;
+}
+
+/* bar chart */
+
+.barChart {
+	height:100%;
+	width:100%;
+	overflow-y:hidden;
+}
+
+.barChart ul {
+	height:100%;
+	width:100%;
+}
+
+.barChart li {
+	height:100px;
+	width:100%;
+	position:relative;
+}
+
+.barChart .labelDiv {
+	width:50px;
+	position:absolute;
+}
+
+.barChart .barCanvas {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0px;
+	left:50px;
+}
+
+.barChart .bar {
+	background-color:#0033CC;
+	position:absolute;
+	width:100px;
+}
+
+/* end bar chart */
+
+
