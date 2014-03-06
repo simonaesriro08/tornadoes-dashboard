@@ -34,7 +34,21 @@ function BarChart(div, years)
 		$(".barChart .bar").css("top", 2);
 	}
 	
-	this.setValues = function() 
+	this.setValues = function(hash) 
+	{
+		var maxCount = Math.max.apply(Math, $.map(hash, function(element,index){return element}));
+		var pct;
+		var val;
+		$.each($(".barChart li"), function(index, value) {
+			val = hash[$(value).find(".labelDiv").html()];
+			if (!val) val = 0;
+			pct = val / maxCount;
+			pct = (pct * 100)+"%";
+			$(value).find(".bar").animate({width: pct});
+		});
+	}
+	
+	this.getSelectedYear = function()
 	{
 	}
 	

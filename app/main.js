@@ -414,5 +414,5 @@ function test()
 			else hash[year] = 1;
 		}
 	});
-	console.log(hash);
+	_barChart.setValues(hash);
 }
