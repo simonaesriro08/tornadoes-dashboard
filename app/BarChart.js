@@ -1,7 +1,9 @@
-function BarChart(div, years)
+function BarChart(div, years, callBack)
 {
 	var _div = div;
 	var _years = years;
+	var _activeYear = "1980";
+	
 	build();
 	
 	function build()
@@ -16,12 +18,21 @@ function BarChart(div, years)
 			$(labelDiv).addClass("barChart labelDiv");
 			barCanvas = $("<div class='barCanvas'></div>");
 			bar = $("<div class='bar'></div>");
+			if (value == _activeYear) $(bar).addClass("active");
 			$(barCanvas).append(bar);
 			li = $("<li></li>");
 			$(li).append(labelDiv).append(barCanvas);
 			$(ul).append(li);
 		});
 		$(_div).append(ul);
+		
+		$(".barChart li").click(function(e) {
+			$(".barChart .bar").removeClass("active");
+			$(e.target).addClass("active");
+			_activeYear = $(e.target).parent().parent().find(".labelDiv").html();
+			callBack();
+        });
+		
 	}
 	
 	this.resize = function()
@@ -48,8 +59,9 @@ function BarChart(div, years)
 		});
 	}
 	
-	this.getSelectedYear = function()
+	this.getActiveYear = function()
 	{
+		return _activeYear;
 	}
 	
 }

@@ -73,7 +73,7 @@ function init() {
 	{
 		arrYears.push(year);
 	}	
-	_barChart = new BarChart($(".barChart").eq(0), arrYears);
+	_barChart = new BarChart($(".barChart").eq(0), arrYears, onBarChartSelect);
 	
 	// jQuery event assignment
 	
@@ -209,6 +209,11 @@ function finishInit() {
 
 	_map.centerAndZoom([-98.27, 38.73], 4);	
 	
+}
+
+function onBarChartSelect()
+{
+	console.log("here's the callback: ", _barChart.getActiveYear());
 }
 
 function doYear(year)

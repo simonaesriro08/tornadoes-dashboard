@@ -265,9 +265,14 @@ a:hover{
 }
 
 .barChart .bar {
-	background-color:#0033CC;
+	background-color:#666;
 	position:absolute;
-	width:100px;
+	width:0%;
+	cursor:pointer;
+}
+
+.barChart .bar.active{
+	background-color:#0033CC;
 }
 
 /* end bar chart */
