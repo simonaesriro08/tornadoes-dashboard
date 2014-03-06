@@ -190,7 +190,7 @@ function finishInit() {
 	if (!_map.loaded) return;
 	if (!_tornadoes) return;
 	
-	doYear("2011");	
+	doYear(_barChart.getActiveYear());	
 	
 	// if _homeExtent hasn't been set, then default to the initial extent
 	// of the web map.  On the other hand, if it HAS been set AND we're using
@@ -213,7 +213,7 @@ function finishInit() {
 
 function onBarChartSelect()
 {
-	console.log("here's the callback: ", _barChart.getActiveYear());
+	doYear(_barChart.getActiveYear());
 }
 
 function doYear(year)
