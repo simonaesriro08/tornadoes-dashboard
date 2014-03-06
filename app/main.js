@@ -85,39 +85,6 @@ function init() {
 	$("#title").append(TITLE);
 	$("#subtitle").append(BYLINE);
 	
-	for (var year = 1950; year < 2012; year++)
-	{
-		$("#year").append("<option>"+year+"</option>");
-	}
-	
-	$("#year").change(function(e) {
-		_map.infoWindow.hide();
-		retract();
-		doYear($("#year option:selected").eq(0).html());
-	});
-
-	$("#arrowUp").click(function(e) {
-		_map.infoWindow.hide();		
-		retract();
-        var year = parseInt($("#year").val());
-		if (year != 1950) {
-			year--;
-			$("#year").val(year);
-			doYear($("#year option:selected").eq(0).html());
-		}
-    });
-	
-	$("#arrowDown").click(function(e) {
-		_map.infoWindow.hide();		
-		retract();
-        var year = parseInt($("#year").val());
-		if (year != 2011) {
-			year++;
-			$("#year").val(year);
-			doYear($("#year option:selected").eq(0).html());
-		}
-    });
-
 	var time1 = new Date();
 	
 	$.ajax({
@@ -215,7 +182,7 @@ function finishInit() {
 	if (!_map.loaded) return;
 	if (!_tornadoes) return;
 	
-	doYear($("#year option:selected").eq(0).html());	
+	doYear("2011");	
 	
 	// if _homeExtent hasn't been set, then default to the initial extent
 	// of the web map.  On the other hand, if it HAS been set AND we're using
