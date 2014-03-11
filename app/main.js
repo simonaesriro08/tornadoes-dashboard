@@ -23,6 +23,7 @@ var FIELDNAME_PROPERTYLOSS = "Loss";
 var _map;
 var _graphicMapManager;
 var _barChart;
+var _hash;
 
 var _dojoReady = false;
 var _jqueryReady = false;
@@ -165,6 +166,7 @@ function onBarChartSelect()
 	retract();
 	doYear(_barChart.getActiveYear());
 	$("#year").html(_barChart.getActiveYear());	
+	summarizeYear();
 }
 
 function doYear(year)
@@ -252,15 +254,23 @@ function updateCountByYear()
 {
 	var time1 = new Date();
 	var extent = _map.extent;
-	var hash = {};
+	_hash = {};
 	var year;
 	$.each(_tornadoes, function(index, value){
 		if (extent.contains(new esri.geometry.Point(value.starting_long, value.starting_lat))) {
 			year = value.date.split("/")[2];
 			year = (year >= 50 ? "19" : "20") + year;
-			if (hash[year]) hash[year] = hash[year] + 1;
-			else hash[year] = 1;
+			if (_hash[year]) _hash[year] = _hash[year] + 1;
+			else _hash[year] = 1;
 		}
 	});
-	_barChart.setValues(hash);
+	_barChart.setValues(_hash);
+	summarizeYear();	
 }
+
+function summarizeYear()
+{
+	var text = "In <b>"+_barChart.getActiveYear()+"</b>, the area in the map to the right saw <b>"+_hash[_barChart.getActiveYear()]+"</b> tornadoes.";
+	$("#summary-strip").html(text);
+}
+
