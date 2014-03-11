@@ -318,6 +318,18 @@ a:hover{
 	background-color:#058eb8;
 }
 
+.barChart hr {
+	height:1px;
+	margin-bottom:5px;
+	background-color:white;
+	margin-left:50px;
+}
+
+.barChart .scaleLabel {
+	color:white;
+	text-align:right;
+}
+
 /* end bar chart */
 
 .qtip-light {

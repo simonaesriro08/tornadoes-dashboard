@@ -25,6 +25,8 @@ function BarChart(div, years, callBack)
 			$(ul).append(li);
 		});
 		$(_div).append(ul);
+		$(_div).append("<hr/>");
+		$(_div).append("<div class='scaleLabel'></div>");
 		
 		$(".barChart li").click(function(e) {
 			$(".barChart .bar").removeClass("active");
@@ -38,7 +40,7 @@ function BarChart(div, years, callBack)
 	this.resize = function()
 	{
 		$(_div).height($(_div).parent().height() - 260);
-		$(".barChart ul").height($(_div).innerHeight());
+		$(".barChart ul").height($(_div).innerHeight()-27);
 		$(".barChart li").height(parseInt($(".barChart ul").innerHeight() / $(".barChart li").length));
 		$(".barChart .barCanvas").width($(".barChart li").width() - $(".barChart .labelDiv").width());
 		$(".barChart .bar").height($(".barChart .barCanvas").height() - 4);
@@ -48,6 +50,7 @@ function BarChart(div, years, callBack)
 	this.setValues = function(hash) 
 	{
 		var maxCount = Math.max.apply(Math, $.map(hash, function(element,index){return element}));
+		$(".barChart .scaleLabel").html(maxCount);
 		var pct;
 		var val;
 		$(".qtip").remove();
