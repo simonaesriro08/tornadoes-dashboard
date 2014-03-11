@@ -176,12 +176,8 @@ a:hover{
 	position:relative;
 }
 
-#side-strip {
-	position:absolute;
-	top:0px;
-	left:0px;
-	z-index:201;
-	width:200px;
+#side-pane {
+	width:420px;
 	height:100%;
 	float:left;
 	background-color:black;
@@ -190,10 +186,19 @@ a:hover{
 	padding:20px;
 }
 
-#info-strip {
-	position:absolute;
-	z-index:199;
+#bar-strip {
+	float:left;
 	width:200px;
+	height:100%;
+	overflow:hidden;
+	padding-right:20px;
+}
+
+#swap-container {
+	float:left;
+	position:relative;
+	overflow:hidden;
+	width:130px;
 	height:100%;
 	background-color:black;
 	color:#bababa;
@@ -202,6 +207,27 @@ a:hover{
 	border-left-color:gray;
 	border-left-style:solid;
 	border-left-width:thin;
+}
+
+#info-strip {
+	position:absolute;
+	padding:20px;
+	top:0px;
+	left:-210px;
+	height:100%;
+	width:100%;
+	z-index:11;
+	background-color:black;
+}
+
+#summary-strip {
+	padding:20px;
+	position:absolute;
+	top:0px;
+	left:0px;
+	height:100%;
+	width:100%;
+	z-index:10;
 }
 
 #year {

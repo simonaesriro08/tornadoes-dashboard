@@ -207,12 +207,12 @@ function scrubDate(val)
 
 function slideOut()
 {
-	$("#info-strip").animate({left: $("#side-strip").outerWidth()});
+	$("#info-strip").animate({left: 0});
 }
 
 function retract()
 {
-	$("#info-strip").animate({left: 0});
+	$("#info-strip").animate({left: -210});
 }
 
 function hoverInfoPos(x,y){
@@ -239,8 +239,8 @@ function handleWindowResize() {
 	
 	$("#content-container").height($("body").height() - $("#header").height());
 	
-	$("#map").css("left", $("#side-strip").outerWidth());
-	$("#map").width($("body").width() - $("#side-strip").outerWidth());
+	$("#map").css("left", $("#side-pane").outerWidth());
+	$("#map").width($("body").width() - $("#side-pane").outerWidth());
 	$("#map").height($("body").height() - $("#header").height());
 	
 	_barChart.resize();
