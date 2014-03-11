@@ -14,6 +14,7 @@ var FIELDNAME_FUJITASCALE = "F_Scale";
 var FIELDNAME_LENGTH = "Length_mi";
 var FIELDNAME_INJURIES = "Injuries";
 var FIELDNAME_FATALITIES = "Fatalities";
+var FIELDNAME_PROPERTYLOSS = "Loss";
 
 /******************************************************
 ***************** end config section ******************
@@ -190,7 +191,8 @@ function onTornadoClick(graphic)
 		$("#fujitaScaleValue").html(atts[FIELDNAME_FUJITASCALE]);
 		$("#lengthValue").html(atts[FIELDNAME_LENGTH]);
 		$("#injuriesValue").html(atts[FIELDNAME_INJURIES]);
-//		$("#fatalitiesValue").html(atts[FIELDNAME_FATALITIES]);
+		$("#fatalitiesValue").html(atts[FIELDNAME_FATALITIES]);
+		$("#propertyLossValue").html(atts[FIELDNAME_PROPERTYLOSS]);
 		slideOut();
 		_map.centerAt(graphic.geometry);
 	});	
