@@ -50,8 +50,22 @@ function BarChart(div, years, callBack)
 		var maxCount = Math.max.apply(Math, $.map(hash, function(element,index){return element}));
 		var pct;
 		var val;
+		$(".qtip").remove();
 		$.each($(".barChart li"), function(index, value) {
 			val = hash[$(value).find(".labelDiv").html()];
+			$(value).find(".bar").qtip({
+				content:{
+					text: $(value).find(".labelDiv").html()+": <b>"+val+"</b>"
+				},
+				style:{
+					classes: 'qtip-light qtip-rounded qtip-shadow'
+				},
+				position:{
+					adjust:{x:0,y:0},
+					my: 'left-center',
+					at:'right-center'
+				}				
+			});
 			if (!val) val = 0;
 			pct = val / maxCount;
 			pct = (pct * 100)+"%";

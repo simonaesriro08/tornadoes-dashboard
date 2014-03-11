@@ -124,12 +124,14 @@ a:hover{
 }
 
 #hoverInfo{
-	font-size:10px;
+	line-height:15px;
+
+	font-size:12px;
 	font-family:Verdana, Geneva, sans-serif;
 	position:absolute;
-	padding:5px;
+	padding:10px;
 	max-width:200px;
-	background-image:url(../resources/images/background_filler.png);
+	background-color:black;
 	border:#FFFFFF solid 1px;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -275,4 +277,15 @@ a:hover{
 
 /* end bar chart */
 
+.qtip-light {
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:12px;
+	border-width:1px;
+	line-height:15px;
+	background-color:black;
+	color:white;
+}
 
+.qtip-light .qtip-content {
+	padding: 10px;
+}
