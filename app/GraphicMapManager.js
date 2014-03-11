@@ -174,4 +174,10 @@ function GraphicMapManager(map, onClickHandler) {
 				);	
 	}
 	
+	function moveGraphicToFront(graphic)
+	{
+		var dojoShape = graphic.getDojoShape();
+		if (dojoShape) dojoShape.moveToFront();
+	}
+	
 }
