@@ -12,6 +12,8 @@ var FEATURE_SERVICE_URL = "http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/re
 var FIELDNAME_DATE = "Date";
 var FIELDNAME_FUJITASCALE = "F_Scale";
 var FIELDNAME_LENGTH = "Length_mi";
+var FIELDNAME_INJURIES = "Injuries";
+var FIELDNAME_FATALITIES = "Fatalities";
 
 /******************************************************
 ***************** end config section ******************
@@ -187,6 +189,8 @@ function onTornadoClick(graphic)
 		$("#tornadoDateValue").html(scrubDate(atts[FIELDNAME_DATE]));
 		$("#fujitaScaleValue").html(atts[FIELDNAME_FUJITASCALE]);
 		$("#lengthValue").html(atts[FIELDNAME_LENGTH]);
+		$("#injuriesValue").html(atts[FIELDNAME_INJURIES]);
+//		$("#fatalitiesValue").html(atts[FIELDNAME_FATALITIES]);
 		slideOut();
 		_map.centerAt(graphic.geometry);
 	});	
