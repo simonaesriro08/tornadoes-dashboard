@@ -170,34 +170,6 @@ function doYear(year)
 	_graphicMapManager.populateGraphics(_subset);
 }
 
-function createPath(value)
-{
-	var pLine = new esri.geometry.Polyline([[value.starting_long, value.starting_lat], [value.end_long, value.end_lat]]);
-	var sym = new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0,0,0,1]), 1);
-	var graphic = new esri.Graphic(pLine, sym)
-	return graphic;
-}
-
-createPictureMarkerSymbol = function(score)
-{
-	var specs = {1:27, 2:27, 3:27,4:32,5:40}
-	return new esri.symbol.PictureMarkerSymbol(
-				"resources/images/marker-X.png".replace("X", score), 
-				specs[score],
-				specs[score]
-			);	
-}
-
-createSimpleMarkerSymbol = function(size, rgb, rgbOutline)
-{
-	return new esri.symbol.SimpleMarkerSymbol(
-				esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE, 
-				size,
-				new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, rgbOutline, 1),
-				rgb
-			);	
-}
-
 function layer_onMouseOver(event) 
 {
 	if (_isMobile) return;
