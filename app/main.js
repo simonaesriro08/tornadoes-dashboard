@@ -116,7 +116,7 @@ function init() {
 							slider: false
 						});
 						
-	_graphicMapManager = new GraphicMapManager(_map);
+	_graphicMapManager = new GraphicMapManager(_map, onTornadoClick);
 	
 	dojo.connect(_map, 'onClick', function(event){
 		if (!event.graphic) {
@@ -170,38 +170,8 @@ function doYear(year)
 	_graphicMapManager.populateGraphics(_subset);
 }
 
-function layer_onMouseOver(event) 
+function onTornadoClick(graphic)
 {
-	if (_isMobile) return;
-	var graphic = event.graphic;
-	_map.setMapCursor("pointer");
-	if (graphic.symbol.url)
-		graphic.setSymbol(graphic.symbol.setWidth(graphic.symbol.width+4).setHeight(graphic.symbol.height+4));
-	else 
-		graphic.setSymbol(graphic.symbol.setSize(graphic.symbol.size+4));
-	if (!_isIE) moveGraphicToFront(graphic);	
-	$("#hoverInfo").html(graphic.attributes.date);
-	var pt = _map.toScreen(graphic.geometry);
-	hoverInfoPos(pt.x,pt.y);	
-}
-
-
-function layer_onMouseOut(event) 
-{
-	var graphic = event.graphic;
-	_map.setMapCursor("default");
-	$("#hoverInfo").hide();
-	if (graphic.symbol.url)
-		graphic.setSymbol(graphic.symbol.setWidth(graphic.symbol.width-4).setHeight(graphic.symbol.height-4));
-	else 
-		graphic.setSymbol(graphic.symbol.setSize(graphic.symbol.size-4));
-}
-
-function layer_onClick(event) 
-{
-	_map.infoWindow.hide();
-	$("#hoverInfo").hide();
-	var graphic = event.graphic;
 	_map.infoWindow.setContent("selection");
 	_map.infoWindow.show(graphic.geometry);
 	
@@ -217,8 +187,7 @@ function layer_onClick(event)
 		$("#fujitaScaleValue").html(atts[FIELDNAME_FUJITASCALE]);
 		slideOut();
 		_map.centerAt(graphic.geometry);
-	});
-	
+	});	
 }
 
 function scrubDate(val)

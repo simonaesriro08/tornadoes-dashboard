@@ -1,4 +1,4 @@
-function GraphicMapManager(map) {
+function GraphicMapManager(map, onClickHandler) {
 	
 	var _map = map;
 	
@@ -57,6 +57,41 @@ function GraphicMapManager(map) {
 		dojo.connect(value, "onClick", layer_onClick);		
 	});
 	
+	function layer_onMouseOver(event) 
+	{
+		if (_isMobile) return;
+		var graphic = event.graphic;
+		_map.setMapCursor("pointer");
+		if (graphic.symbol.url)
+			graphic.setSymbol(graphic.symbol.setWidth(graphic.symbol.width+4).setHeight(graphic.symbol.height+4));
+		else 
+			graphic.setSymbol(graphic.symbol.setSize(graphic.symbol.size+4));
+		if (!_isIE) moveGraphicToFront(graphic);	
+		$("#hoverInfo").html(graphic.attributes.date);
+		var pt = _map.toScreen(graphic.geometry);
+		hoverInfoPos(pt.x,pt.y);	
+	}
+	
+	
+	function layer_onMouseOut(event) 
+	{
+		var graphic = event.graphic;
+		_map.setMapCursor("default");
+		$("#hoverInfo").hide();
+		if (graphic.symbol.url)
+			graphic.setSymbol(graphic.symbol.setWidth(graphic.symbol.width-4).setHeight(graphic.symbol.height-4));
+		else 
+			graphic.setSymbol(graphic.symbol.setSize(graphic.symbol.size-4));
+	}
+	
+	function layer_onClick(event) 
+	{
+		_map.infoWindow.hide();
+		$("#hoverInfo").hide();
+		var graphic = event.graphic;
+		onClickHandler(graphic);		
+	}
+		
 	this.populateGraphics = function(records) 
 	{
 
