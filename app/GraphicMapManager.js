@@ -119,7 +119,7 @@ function GraphicMapManager(map) {
 		return graphic;
 	}
 	
-	createPictureMarkerSymbol = function(score)
+	function createPictureMarkerSymbol(score)
 	{
 		var specs = {1:27, 2:27, 3:27,4:32,5:40}
 		return new esri.symbol.PictureMarkerSymbol(
@@ -129,7 +129,7 @@ function GraphicMapManager(map) {
 				);	
 	}
 	
-	createSimpleMarkerSymbol = function(size, rgb, rgbOutline)
+	function createSimpleMarkerSymbol(size, rgb, rgbOutline)
 	{
 		return new esri.symbol.SimpleMarkerSymbol(
 					esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE, 
