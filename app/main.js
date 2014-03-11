@@ -126,7 +126,7 @@ function init() {
 	});
 	
 	dojo.connect(_map, "onExtentChange", function(event) {
-		test();
+		updateCountByYear();
 	})
 
 		
@@ -277,7 +277,7 @@ function handleWindowResize() {
 	
 }
 
-function test()
+function updateCountByYear()
 {
 	var time1 = new Date();
 	var extent = _map.extent;
