@@ -6,7 +6,7 @@ dojo.require("esri.map");
 *******************************************************/
 
 var TITLE = "Tornadoes"
-var BYLINE = "Let's twist again, like we did last summer."
+var BYLINE = "Curabitur tincidunt arcu sed nulla pretium vulputate. Quisque pretium feugiat scelerisque."
 var FEATURE_SERVICE_URL = "http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/rest/services/Tornados_Points/FeatureServer/0";
 
 var FIELDNAME_DATE = "Date";
