@@ -275,7 +275,12 @@ function updateCountByYear()
 			recs = $.grep(_hash, function(n, i){return n.year == year});
 			if (recs.length == 0) {
 				// must create entry
-				_hash.push({year:year, totalCount:1, totalInjuries:parseInt(value[CSV_FIELDNAME_INJURIES]), totalFatalities:parseInt(value[CSV_FIELDNAME_FATALITIES])});
+				_hash.push({
+					year:year, 
+					totalCount:1, 
+					totalInjuries:parseInt(value[CSV_FIELDNAME_INJURIES]), 
+					totalFatalities:parseInt(value[CSV_FIELDNAME_FATALITIES])
+					});
 			} else {
 				// entry already exists; just add in values
 				var rec = recs[0];
