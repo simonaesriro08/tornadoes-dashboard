@@ -17,6 +17,7 @@ var FIELDNAME_FATALITIES = "Fatalities";
 var FIELDNAME_PROPERTYLOSS = "Loss";
 
 var CSV_FIELDNAME_INJURIES = "injuries";
+var CSV_FIELDNAME_FATALITIES = "fatalities";
 
 /******************************************************
 ***************** end config section ******************
@@ -64,7 +65,7 @@ function init() {
 	}
 	
 	var arrYears = [];
-	for (var year = 1980; year < 2012; year++)
+	for (var year = 1980; year <= 2012; year++)
 	{
 		arrYears.push(year);
 	}	
@@ -274,12 +275,13 @@ function updateCountByYear()
 			recs = $.grep(_hash, function(n, i){return n.year == year});
 			if (recs.length == 0) {
 				// must create entry
-				_hash.push({year:year, totalCount:1, totalInjuries:parseInt(value[CSV_FIELDNAME_INJURIES])});
+				_hash.push({year:year, totalCount:1, totalInjuries:parseInt(value[CSV_FIELDNAME_INJURIES]), totalFatalities:parseInt(value[CSV_FIELDNAME_FATALITIES])});
 			} else {
 				// entry already exists; just add in values
 				var rec = recs[0];
 				rec.totalCount = rec.totalCount + 1;
 				rec.totalInjuries = parseInt(rec.totalInjuries) + parseInt(value[CSV_FIELDNAME_INJURIES]);
+				rec.totalFatalities = parseInt(rec.totalFatalities) + parseInt(value[CSV_FIELDNAME_FATALITIES]);
 			}
 		}
 	});
@@ -290,6 +292,6 @@ function updateCountByYear()
 function summarizeYear()
 {
 	var rec = $.grep(_hash, function(n, i){return n.year == _barChart.getActiveYear()})[0];
-	_summaryInfoStrip.updateInfo(rec.year, rec.totalCount, rec.totalInjuries)
+	_summaryInfoStrip.updateInfo(rec.year, rec.totalCount, rec.totalInjuries, rec.totalFatalities)
 }
 
