@@ -24,6 +24,7 @@ var _map;
 var _graphicMapManager;
 var _barChart;
 var _hash;
+var _summaryInfoStrip;
 
 var _dojoReady = false;
 var _jqueryReady = false;
@@ -66,6 +67,8 @@ function init() {
 		arrYears.push(year);
 	}	
 	_barChart = new BarChart($(".barChart").eq(0), arrYears, onBarChartSelect);
+	
+	_summaryInfoStrip = new SummaryInfoStrip($("#summary-info-strip").eq(0));
 	
 	// jQuery event assignment
 	
@@ -269,7 +272,6 @@ function updateCountByYear()
 
 function summarizeYear()
 {
-	var text = "In <b>"+_barChart.getActiveYear()+"</b>, the area to the right saw <b>"+_hash[_barChart.getActiveYear()]+"</b> tornadoes.";
-	$("#summary-info-strip").html(text);
+	_summaryInfoStrip.updateInfo(_barChart.getActiveYear(), _hash[_barChart.getActiveYear()])
 }
 
