@@ -258,24 +258,31 @@ function handleWindowResize() {
 function summarizeByYear()
 {
 	var time1 = new Date();
-	var extent = _map.extent;
 	/*
+	Summary table should look like this:
 	_summaryTable = [
 		{year: 1980, total-count: 40, total-injuries: 3}
 		{year: 1981, total-count: 31, total-injuries: 5}, 
 	]
 	*/
-	_summaryTable = [];
+	_summaryTable = buildSummaryTableOnClient();
+	_barChart.setValues(_summaryTable);
+	reportYear();	
+}
+
+function buildSummaryTableOnClient()
+{
+	var result = [];
 	var year;
 	var recs;
 	$.each(_tornadoes, function(index, value){
-		if (extent.contains(new esri.geometry.Point(value.starting_long, value.starting_lat))) {
+		if (_map.extent.contains(new esri.geometry.Point(value.starting_long, value.starting_lat))) {
 			year = value.date.split("/")[2];
 			year = (year >= 50 ? "19" : "20") + year;
-			recs = $.grep(_summaryTable, function(n, i){return n.year == year});
+			recs = $.grep(result, function(n, i){return n.year == year});
 			if (recs.length == 0) {
 				// must create entry
-				_summaryTable.push({
+				result.push({
 					year:year, 
 					totalCount:1, 
 					totalInjuries:parseInt(value[CSV_FIELDNAME_INJURIES]), 
@@ -290,8 +297,7 @@ function summarizeByYear()
 			}
 		}
 	});
-	_barChart.setValues(_summaryTable);
-	reportYear();	
+	return result;
 }
 
 function reportYear()
