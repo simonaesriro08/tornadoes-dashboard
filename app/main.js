@@ -270,6 +270,6 @@ function updateCountByYear()
 function summarizeYear()
 {
 	var text = "In <b>"+_barChart.getActiveYear()+"</b>, the area to the right saw <b>"+_hash[_barChart.getActiveYear()]+"</b> tornadoes.";
-	$("#summary-strip").html(text);
+	$("#summary-info-strip").html(text);
 }
 
