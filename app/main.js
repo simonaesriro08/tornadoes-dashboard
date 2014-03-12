@@ -134,7 +134,7 @@ function init() {
 			retract();
 		}
 	});
-	
+		
 	dojo.connect(_map, "onExtentChange", function(event) {
 		summarizeByYear();
 		if ($("#whiteOut").css("opacity")) $("#whiteOut").fadeOut();
@@ -257,17 +257,31 @@ function handleWindowResize() {
 
 function summarizeByYear()
 {
-	var time1 = new Date();
 	/*
 	Summary table should look like this:
 	_summaryTable = [
-		{year: 1980, total-count: 40, total-injuries: 3}
-		{year: 1981, total-count: 31, total-injuries: 5}, 
+		{year: 1980, total-count: 40, total-injuries: 3, total-fatalities: 0}
+		{year: 1981, total-count: 31, total-injuries: 5, total-fatalities: 0}, 
 	]
 	*/
-	_summaryTable = buildSummaryTableOnClient();
-	_barChart.setValues(_summaryTable);
-	reportYear();	
+	
+	if (!_isMobile) {
+		_summaryTable = buildSummaryTableOnClient();
+		_barChart.setValues(_summaryTable);
+		reportYear();	
+	} else {		
+		buildSummaryTableFromServer(function(result) {
+			var arr = [];
+			$.each(result.features, function(index, value) {
+				value.attributes.year = value.attributes.Year;
+				arr.push(value.attributes);
+			});
+			_summaryTable = arr;				
+			_barChart.setValues(_summaryTable);
+			reportYear();	
+		});
+	}
+	
 }
 
 function buildSummaryTableOnClient()
@@ -298,6 +312,36 @@ function buildSummaryTableOnClient()
 		}
 	});
 	return result;
+}
+
+function buildSummaryTableFromServer(callBack)
+{
+	
+	var statDefCount = new esri.tasks.StatisticDefinition();
+	statDefCount.statisticType = "count";
+	statDefCount.onStatisticField = "Year";
+	statDefCount.outStatisticFieldName = "totalCount";
+	
+	var statDefInjuries = new esri.tasks.StatisticDefinition();
+	statDefInjuries.statisticType = "sum";
+	statDefInjuries.onStatisticField = "Injuries";
+	statDefInjuries.outStatisticFieldName = "totalInjuries";
+
+	var statDefFatalities = new esri.tasks.StatisticDefinition();
+	statDefFatalities.statisticType = "sum";
+	statDefFatalities.onStatisticField = "Fatalities";
+	statDefFatalities.outStatisticFieldName = "totalFatalities";
+
+	var extent = esri.geometry.webMercatorToGeographic(_map.extent)
+	
+	var query = new esri.tasks.Query();
+	query.where = "Starting_Lat >= "+extent.ymin+" AND Starting_Long >= "+extent.xmin+" AND Starting_Lat <= "+extent.ymax+" AND Starting_Long <= "+extent.xmax;
+	query.outStatistics = [statDefCount, statDefInjuries, statDefFatalities];
+	query.groupByFieldsForStatistics = ["Year"];
+					
+	var queryTask = new esri.tasks.QueryTask(FEATURE_SERVICE_URL);
+	queryTask.execute(query, callBack);
+	
 }
 
 function reportYear()
