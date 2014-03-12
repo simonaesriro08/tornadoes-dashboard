@@ -114,7 +114,6 @@ function init() {
 									" <br/ >"+
 									"- Loop time: <b>"+loopTime+"</b>"									
 									);
-				$("#whiteOut").fadeOut();
 				finishInit();
 			  }, 100);
 		  });
@@ -138,6 +137,7 @@ function init() {
 	
 	dojo.connect(_map, "onExtentChange", function(event) {
 		updateCountByYear();
+		if ($("#whiteOut").css("opacity")) $("#whiteOut").fadeOut();
 	})
 
 		
