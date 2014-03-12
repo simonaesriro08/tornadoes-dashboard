@@ -172,7 +172,7 @@ function onBarChartSelect()
 	retract();
 	doYear(_barChart.getActiveYear());
 	$("#year").html(_barChart.getActiveYear());	
-	summarizeYear();
+	reportYear();
 }
 
 function doYear(year)
@@ -291,10 +291,10 @@ function summarizeByYear()
 		}
 	});
 	_barChart.setValues(_summaryTable);
-	summarizeYear();	
+	reportYear();	
 }
 
-function summarizeYear()
+function reportYear()
 {
 	var rec = $.grep(_summaryTable, function(n, i){return n.year == _barChart.getActiveYear()})[0];
 	_summaryInfoStrip.updateInfo(rec.year, rec.totalCount, rec.totalInjuries, rec.totalFatalities)
