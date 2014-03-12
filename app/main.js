@@ -208,12 +208,12 @@ function scrubDate(val)
 
 function slideOut()
 {
-	$("#info-strip").animate({left: 20});
+	$("#tornado-info-strip").animate({left: 20});
 }
 
 function retract()
 {
-	$("#info-strip").animate({left: -230});
+	$("#tornado-info-strip").animate({left: -230});
 }
 
 function hoverInfoPos(x,y){
