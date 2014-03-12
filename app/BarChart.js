@@ -49,13 +49,16 @@ function BarChart(div, years, callBack)
 	
 	this.setValues = function(hash) 
 	{
-		var maxCount = Math.max.apply(Math, $.map(hash, function(element,index){return element}));
+		var maxCount = Math.max.apply(Math, $.map(hash, function(element,index){return element.totalCount}));
 		$(".barChart .scaleLabel").html(maxCount);
 		var pct;
 		var val;
 		$(".qtip").remove();
+		var recs;
 		$.each($(".barChart li"), function(index, value) {
-			val = hash[$(value).find(".labelDiv").html()];
+			recs = $.grep(hash, function(n, i){return n.year == $(value).find(".labelDiv").html()});
+			if (recs.length == 0) val = 0;
+			else val = recs[0].totalCount;
 			$(value).find(".bar").qtip({
 				content:{
 					text: $(value).find(".labelDiv").html()+": <b>"+val+"</b>"

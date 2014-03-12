@@ -16,6 +16,8 @@ var FIELDNAME_INJURIES = "Injuries";
 var FIELDNAME_FATALITIES = "Fatalities";
 var FIELDNAME_PROPERTYLOSS = "Loss";
 
+var CSV_FIELDNAME_INJURIES = "injuries";
+
 /******************************************************
 ***************** end config section ******************
 *******************************************************/
@@ -256,14 +258,29 @@ function updateCountByYear()
 {
 	var time1 = new Date();
 	var extent = _map.extent;
-	_hash = {};
+	/*
+	_hash = [
+		{year: 1980, total-count: 40, total-injuries: 3}
+		{year: 1981, total-count: 31, total-injuries: 5}, 
+	]
+	*/
+	_hash = [];
 	var year;
+	var recs;
 	$.each(_tornadoes, function(index, value){
 		if (extent.contains(new esri.geometry.Point(value.starting_long, value.starting_lat))) {
 			year = value.date.split("/")[2];
 			year = (year >= 50 ? "19" : "20") + year;
-			if (_hash[year]) _hash[year] = _hash[year] + 1;
-			else _hash[year] = 1;
+			recs = $.grep(_hash, function(n, i){return n.year == year});
+			if (recs.length == 0) {
+				// must create entry
+				_hash.push({year:year, totalCount:1, totalInjuries:parseInt(value[CSV_FIELDNAME_INJURIES])});
+			} else {
+				// entry already exists; just add in values
+				var rec = recs[0];
+				rec.totalCount = rec.totalCount + 1;
+				rec.totalInjuries = parseInt(rec.totalInjuries) + parseInt(value[CSV_FIELDNAME_INJURIES]);
+			}
 		}
 	});
 	_barChart.setValues(_hash);
@@ -272,6 +289,7 @@ function updateCountByYear()
 
 function summarizeYear()
 {
-	_summaryInfoStrip.updateInfo(_barChart.getActiveYear(), _hash[_barChart.getActiveYear()])
+	var rec = $.grep(_hash, function(n, i){return n.year == _barChart.getActiveYear()})[0];
+	_summaryInfoStrip.updateInfo(rec.year, rec.totalCount, rec.totalInjuries)
 }
 
