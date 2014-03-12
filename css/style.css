@@ -212,7 +212,6 @@ a:hover{
 
 #tornado-info-strip {
 	position:absolute;
-	padding-top:20px;
 	top:0px;
 	left:-230px;
 	height:100%;
@@ -254,11 +253,6 @@ a:hover{
 	font-size:80px;	
 }
 
-#tornadoDateValue {
-	font-size:18px;
-	color:white;
-}
-
 .info-strip .infoValue {
 	color:#058eb8;
 	font-size:60px;
@@ -271,6 +265,11 @@ a:hover{
 
 .info-strip .title {
 	font-size:22px;
+	color:white;
+}
+
+.info-strip .dateCaption {
+	font-size:14px;
 	color:white;
 }
 
