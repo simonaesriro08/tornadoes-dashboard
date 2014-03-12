@@ -136,7 +136,7 @@ function init() {
 	});
 	
 	dojo.connect(_map, "onExtentChange", function(event) {
-		updateCountByYear();
+		summarizeByYear();
 		if ($("#whiteOut").css("opacity")) $("#whiteOut").fadeOut();
 	})
 
@@ -255,7 +255,7 @@ function handleWindowResize() {
 	
 }
 
-function updateCountByYear()
+function summarizeByYear()
 {
 	var time1 = new Date();
 	var extent = _map.extent;
