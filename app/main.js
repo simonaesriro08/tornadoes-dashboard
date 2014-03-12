@@ -209,12 +209,12 @@ function scrubDate(val)
 
 function slideOut()
 {
-	$("#info-strip").animate({left: 0});
+	$("#info-strip").animate({left: 20});
 }
 
 function retract()
 {
-	$("#info-strip").animate({left: -210});
+	$("#info-strip").animate({left: -230});
 }
 
 function hoverInfoPos(x,y){
@@ -270,7 +270,7 @@ function updateCountByYear()
 
 function summarizeYear()
 {
-	var text = "In <b>"+_barChart.getActiveYear()+"</b>, the area in the map to the right saw <b>"+_hash[_barChart.getActiveYear()]+"</b> tornadoes.";
+	var text = "In <b>"+_barChart.getActiveYear()+"</b>, the area to the right saw <b>"+_hash[_barChart.getActiveYear()]+"</b> tornadoes.";
 	$("#summary-strip").html(text);
 }
 

@@ -197,14 +197,14 @@ a:hover{
 #swap-container {
 	float:left;
 	padding-left:20px;
+	padding-top:20px;
 	position:relative;
 	overflow:hidden;
-	width:135px;
+	width:178px;
 	height:100%;
 	background-color:black;
 	color:#bababa;
 	font-family:Arial, Helvetica, sans-serif;
-	padding:20px;
 	border-left-color:gray;
 	border-left-style:solid;
 	border-left-width:thin;
@@ -212,22 +212,21 @@ a:hover{
 
 #info-strip {
 	position:absolute;
-	padding:20px;
+	padding-top:20px;
 	top:0px;
-	left:-210px;
+	left:-230px;
 	height:100%;
-	width:100%;
+	width:165px;
 	z-index:11;
 	background-color:black;
 }
 
 #summary-strip {
-	padding:20px;
 	position:absolute;
 	top:0px;
-	left:0px;
+	left:20px;
 	height:100%;
-	width:100%;
+	width:165;
 	z-index:10;
 }
 
