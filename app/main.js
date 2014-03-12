@@ -196,7 +196,6 @@ function onTornadoClick(graphic)
 		$("#fatalitiesValue").html(atts[FIELDNAME_FATALITIES]);
 		$("#propertyLossValue").html(atts[FIELDNAME_PROPERTYLOSS]);
 		slideOut();
-		_map.centerAt(graphic.geometry);
 	});	
 }
 
