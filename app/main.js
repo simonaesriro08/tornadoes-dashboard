@@ -45,6 +45,8 @@ var _subset;
 
 var _loadTime;
 
+var _count = 0;
+
 dojo.addOnLoad(function() {_dojoReady = true;init()});
 jQuery(document).ready(function() {_jqueryReady = true;init()});
 
@@ -135,12 +137,6 @@ function init() {
 		}
 	});
 		
-	dojo.connect(_map, "onExtentChange", function(event) {
-		summarizeByYear();
-		if ($("#whiteOut").css("opacity")) $("#whiteOut").fadeOut();
-	})
-
-		
 	if(_map.loaded){
 		finishInit();
 	} else {
@@ -159,7 +155,16 @@ function finishInit() {
 	
 	doYear(_barChart.getActiveYear());	
 	$("#year").html(_barChart.getActiveYear());
-	
+
+	dojo.connect(_map, "onExtentChange", function(event) {
+		if (_count == 0) {
+			summarizeByYear(function(){$("#whiteOut").fadeOut()});
+		} else {
+			summarizeByYear();
+		}
+		_count++;
+	})
+			
 	_map.centerAndZoom([-98.27, 38.73], 4);
 	
 	setTimeout(function(){_homeExtent = _map.extent}, 1000);
@@ -255,7 +260,7 @@ function handleWindowResize() {
 	
 }
 
-function summarizeByYear()
+function summarizeByYear(callBack)
 {
 	/*
 	Summary table should look like this:
@@ -269,6 +274,7 @@ function summarizeByYear()
 		_summaryTable = buildSummaryTableOnClient();
 		_barChart.setValues(_summaryTable);
 		reportYear();	
+		if (callBack) callBack();
 	} else {		
 		buildSummaryTableFromServer(function(result) {
 			var arr = [];
@@ -279,6 +285,7 @@ function summarizeByYear()
 			_summaryTable = arr;				
 			_barChart.setValues(_summaryTable);
 			reportYear();	
+			if (callBack) callBack();			
 		});
 	}
 	
