@@ -112,11 +112,7 @@ function GraphicMapManager(map, onClickHandler) {
 		var sr = new esri.SpatialReference(4326);
 		$.each(records, function(index, value){
 			  var pt = new esri.geometry.Point(value.starting_long, value.starting_lat, sr);
-			  var sym;
-			  if (value.f_scale > 0)
-				sym = createPictureMarkerSymbol(value.f_scale);
-			  else
-				sym = createSimpleMarkerSymbol(8, new dojo.Color([153,153,92,1]), new dojo.Color([255,255,255,1]));
+			  var sym = createPictureMarkerSymbol(value.f_scale);
 			  var graphic = new esri.Graphic(pt, sym, value);
 			  if (value.f_scale == 5) {
 				  _layer5.add(graphic);		
@@ -156,9 +152,9 @@ function GraphicMapManager(map, onClickHandler) {
 	
 	function createPictureMarkerSymbol(score)
 	{
-		var specs = {1:27, 2:27, 3:27,4:32,5:40}
+		var specs = {0:20, 1:27, 2:30, 3:36,4:42,5:48}
 		return new esri.symbol.PictureMarkerSymbol(
-					"resources/images/marker-X.png".replace("X", score), 
+					"resources/images/Tornado_X.png".replace("X", score), 
 					specs[score],
 					specs[score]
 				);	
