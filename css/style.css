@@ -186,6 +186,23 @@ a:hover{
 	padding:20px;
 }
 
+#instructions {
+	font-size:12px;
+	padding-top:15px;
+	padding-bottom:20px;
+	list-style:disc outside none;
+	margin-left:20px	
+}
+
+#instructions li {
+	padding-top:5px;
+}
+
+#instructions li span {
+	font-weight:bold;
+	color:white;
+}
+
 #bar-strip {
 	float:left;
 	width:200px;
@@ -230,15 +247,6 @@ a:hover{
 }
 
 /* info-strip stuff */
-
-#year {
-	padding-bottom:20px;
-	font-size:60px;
-	color:#058eb8;
-	font-family:Georgia, 'Times New Roman', Times, serif;
-	background-color:black; 
-	border:none;
-}
 
 .info-strip hr {
 	background-color:#3f3f3f;

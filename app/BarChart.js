@@ -39,7 +39,7 @@ function BarChart(div, years, callBack)
 	
 	this.resize = function()
 	{
-		$(_div).height($(_div).parent().height() - 260);
+		$(_div).height($(_div).parent().height() - 180);
 		$(".barChart ul").height($(_div).innerHeight()-27);
 		$(".barChart li").height(parseInt($(".barChart ul").innerHeight() / $(".barChart li").length));
 		$(".barChart .barCanvas").width($(".barChart li").width() - $(".barChart .labelDiv").width());
