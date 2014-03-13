@@ -247,7 +247,7 @@ function summarizeByYear(callBack)
 	*/
 	
 	if (!_isMobile) {
-		_summaryTable = buildSummaryTableOnClient();
+		_summaryTable = _spreadSheet.summarizeForExtent(_map.extent);
 		_barChart.setValues(_summaryTable);
 		reportYear();	
 		if (callBack) callBack();
@@ -263,38 +263,7 @@ function summarizeByYear(callBack)
 			reportYear();	
 			if (callBack) callBack();			
 		});
-	}
-	
-}
-
-function buildSummaryTableOnClient()
-{
-	var result = [];
-	var year;
-	var recs;
-	$.each(_spreadSheet.getRecords(), function(index, value){
-		if (_map.extent.contains(new esri.geometry.Point(value.starting_long, value.starting_lat))) {
-			year = value.date.split("/")[2];
-			year = (year >= 50 ? "19" : "20") + year;
-			recs = $.grep(result, function(n, i){return n.year == year});
-			if (recs.length == 0) {
-				// must create entry
-				result.push({
-					year:year, 
-					totalCount:1, 
-					totalInjuries:parseInt(value[CSV_FIELDNAME_INJURIES]), 
-					totalFatalities:parseInt(value[CSV_FIELDNAME_FATALITIES])
-					});
-			} else {
-				// entry already exists; just add in values
-				var rec = recs[0];
-				rec.totalCount = rec.totalCount + 1;
-				rec.totalInjuries = parseInt(rec.totalInjuries) + parseInt(value[CSV_FIELDNAME_INJURIES]);
-				rec.totalFatalities = parseInt(rec.totalFatalities) + parseInt(value[CSV_FIELDNAME_FATALITIES]);
-			}
-		}
-	});
-	return result;
+	}	
 }
 
 function buildSummaryTableFromServer(callBack)

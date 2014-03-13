@@ -56,5 +56,35 @@ function Spreadsheet() {
 		return $.grep(_spreadSheet.getRecords(), function(n, i){return n.date.split("/")[2] == year})		
 	}
 	
+	this.summarizeForExtent = function(extent)
+	{
+		var result = [];
+		var year;
+		var recs;
+		$.each(_recs, function(index, value){
+			if (extent.contains(new esri.geometry.Point(value.starting_long, value.starting_lat))) {
+				year = value.date.split("/")[2];
+				year = (year >= 50 ? "19" : "20") + year;
+				recs = $.grep(result, function(n, i){return n.year == year});
+				if (recs.length == 0) {
+					// must create entry
+					result.push({
+						year:year, 
+						totalCount:1, 
+						totalInjuries:parseInt(value[CSV_FIELDNAME_INJURIES]), 
+						totalFatalities:parseInt(value[CSV_FIELDNAME_FATALITIES])
+						});
+				} else {
+					// entry already exists; just add in values
+					var rec = recs[0];
+					rec.totalCount = rec.totalCount + 1;
+					rec.totalInjuries = parseInt(rec.totalInjuries) + parseInt(value[CSV_FIELDNAME_INJURIES]);
+					rec.totalFatalities = parseInt(rec.totalFatalities) + parseInt(value[CSV_FIELDNAME_FATALITIES]);
+				}
+			}
+		});
+		return result;
+	}
+	
 	
 }
