@@ -100,25 +100,23 @@ function init() {
 	  url: "data/1950-2012_torn_scrubbed.csv",
 	  cache: false,
 	  success: function(text) {	
-	  	  $("#loader").slideUp(function(){
-			  $("#waitMsg").html("Unpacking...");
-			  setTimeout(function(){
-				var fetchTime = (new Date() - time1) / 1000;
-				var before = new Date();
-				var serviceTornadoes = new CSVService();
-				serviceTornadoes.process(text);
-				_tornadoes = new RecordParser().getRecs(serviceTornadoes.getLines());
-				var loopTime = (new Date() - before) / 1000;
-				_loadTime = (new Date() - time1) / 1000;
-				$("#loadTime").html("Load time: <b>"+_loadTime+"</b> seconds"+
-									" <br/ >"+
-									"- Fetch time: <b>"+fetchTime+"</b>"+
-									" <br/ >"+
-									"- Loop time: <b>"+loopTime+"</b>"									
-									);
-				finishInit();
-			  }, 100);
-		  });
+		  $("#waitMsg").html("Unpacking...");
+		  setTimeout(function(){
+			var fetchTime = (new Date() - time1) / 1000;
+			var before = new Date();
+			var serviceTornadoes = new CSVService();
+			serviceTornadoes.process(text);
+			_tornadoes = new RecordParser().getRecs(serviceTornadoes.getLines());
+			var loopTime = (new Date() - before) / 1000;
+			_loadTime = (new Date() - time1) / 1000;
+			$("#loadTime").html("Load time: <b>"+_loadTime+"</b> seconds"+
+								" <br/ >"+
+								"- Fetch time: <b>"+fetchTime+"</b>"+
+								" <br/ >"+
+								"- Loop time: <b>"+loopTime+"</b>"									
+								);
+			finishInit();
+		  }, 100);
 	  }
 	});	
 
