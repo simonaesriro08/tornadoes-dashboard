@@ -29,6 +29,8 @@ var _barChart;
 var _summaryTable;
 var _summaryInfoStrip;
 
+var _spreadSheet;
+
 var _dojoReady = false;
 var _jqueryReady = false;
 
@@ -40,10 +42,7 @@ var _homeExtent; // set this in init() if desired; otherwise, it will
 var _isMobile = isMobile();
 
 var _isEmbed = false;
-var _tornadoes;
 var _subset;
-
-var _loadTime;
 
 var _count = 0;
 
@@ -92,33 +91,21 @@ function init() {
 	
 	$("#title").append(TITLE);
 	$("#subtitle").append(BYLINE);
-	
-	var time1 = new Date();
-	
-	$.ajax({
-	  type: 'GET',
-	  url: "data/1950-2012_torn_scrubbed.csv",
-	  cache: false,
-	  success: function(text) {	
-		  $("#waitMsg").html("Unpacking...");
-		  setTimeout(function(){
-			var fetchTime = (new Date() - time1) / 1000;
-			var before = new Date();
-			var serviceTornadoes = new CSVService();
-			serviceTornadoes.process(text);
-			_tornadoes = new RecordParser().getRecs(serviceTornadoes.getLines());
-			var loopTime = (new Date() - before) / 1000;
-			_loadTime = (new Date() - time1) / 1000;
-			$("#loadTime").html("Load time: <b>"+_loadTime+"</b> seconds"+
-								" <br/ >"+
-								"- Fetch time: <b>"+fetchTime+"</b>"+
-								" <br/ >"+
-								"- Loop time: <b>"+loopTime+"</b>"									
-								);
-			finishInit();
-		  }, 100);
-	  }
-	});	
+
+	_spreadSheet = new Spreadsheet();
+	_spreadSheet.doLoad(
+		"data/1950-2012_torn_scrubbed.csv", 
+		function(){$("#waitMsg").html("Unpacking...")}, 
+		function(){			
+					$("#loadTime").html("Load time: <b>"+_spreadSheet.getLoadTime()+"</b> seconds"+
+					" <br/ >"+
+					"- Fetch time: <b>"+_spreadSheet.getFetchTime()+"</b>"+
+					" <br/ >"+
+					"- Parse time: <b>"+_spreadSheet.getParseTime()+"</b>"									
+					);
+					finishInit();
+					}
+		);
 
 	_map = new esri.Map("map",
 						{
@@ -149,7 +136,7 @@ function finishInit() {
 	
 	if (!_map) return;
 	if (!_map.loaded) return;
-	if (!_tornadoes) return;
+	if (!_spreadSheet.getRecords()) return;
 	
 	doYear(_barChart.getActiveYear());	
 	$("#year").html(_barChart.getActiveYear());
@@ -181,7 +168,7 @@ function onBarChartSelect()
 function doYear(year)
 {
 	year = year.toString().slice(2);
-	_subset = $.grep(_tornadoes, function(n, i){return n.date.split("/")[2] == year});
+	_subset = $.grep(_spreadSheet.getRecords(), function(n, i){return n.date.split("/")[2] == year});
 	_graphicMapManager.populateGraphics(_subset);
 }
 
@@ -294,7 +281,7 @@ function buildSummaryTableOnClient()
 	var result = [];
 	var year;
 	var recs;
-	$.each(_tornadoes, function(index, value){
+	$.each(_spreadSheet.getRecords(), function(index, value){
 		if (_map.extent.contains(new esri.geometry.Point(value.starting_long, value.starting_lat))) {
 			year = value.date.split("/")[2];
 			year = (year >= 50 ? "19" : "20") + year;
