@@ -1,6 +1,14 @@
 function GraphicMapManager(map, onClickHandler) {
 	
 	var _map = map;
+	var _colors = {
+			0:dojo.colorFromHex("#6ed1b9"),
+			1:dojo.colorFromHex("#1db3ac"),
+			2:dojo.colorFromHex("#02a3ab"),
+			3:dojo.colorFromHex("#0593b6"),
+			4:dojo.colorFromHex("#0580af"),		
+			5:dojo.colorFromHex("#035995")	
+		};
 	
 	var _layer5;
 	var _layer4;
@@ -145,7 +153,7 @@ function GraphicMapManager(map, onClickHandler) {
 	function createPath(value)
 	{
 		var pLine = new esri.geometry.Polyline([[value.starting_long, value.starting_lat], [value.end_long, value.end_lat]]);
-		var sym = new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0,0,0,1]), 1);
+		var sym = new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, _colors[value.f_scale], value.f_scale);
 		var graphic = new esri.Graphic(pLine, sym)
 		return graphic;
 	}
