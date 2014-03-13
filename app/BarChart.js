@@ -25,8 +25,16 @@ function BarChart(div, years, callBack)
 			$(ul).append(li);
 		});
 		$(_div).append(ul);
-		$(_div).append("<hr/>");
-		$(_div).append("<div class='scaleLabel'></div>");
+		$(_div).append("<div class='x-axis'></div>");
+		
+		var scaleNumbers = $("<div class='scaleLabels'></div>");
+		var xmin = $("<div id='xmin'>0</div>");
+		var xmax = $("<div id='xmax'></div>");
+		
+		$(scaleNumbers).append(xmin);
+		$(scaleNumbers).append(xmax);
+		
+		$(_div).append(scaleNumbers);
 		
 		$(".barChart li").click(function(e) {
 			$(".barChart .bar").removeClass("active");
@@ -40,7 +48,7 @@ function BarChart(div, years, callBack)
 	this.resize = function()
 	{
 		$(_div).height($(_div).parent().height() - 180);
-		$(".barChart ul").height($(_div).innerHeight()-27);
+		$(".barChart ul").height($(_div).innerHeight()-35);
 		$(".barChart li").height(parseInt($(".barChart ul").innerHeight() / $(".barChart li").length));
 		$(".barChart .barCanvas").width($(".barChart li").width() - $(".barChart .labelDiv").width());
 		$(".barChart .bar").height($(".barChart .barCanvas").height() - 4);
@@ -50,7 +58,7 @@ function BarChart(div, years, callBack)
 	this.setValues = function(hash) 
 	{
 		var maxCount = Math.max.apply(Math, $.map(hash, function(element,index){return element.totalCount}));
-		$(".barChart .scaleLabel").html(maxCount);
+		$(".barChart #xmax").html(maxCount);
 		var pct;
 		var val;
 		$(".qtip").remove();

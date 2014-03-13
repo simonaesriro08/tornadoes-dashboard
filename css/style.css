@@ -334,15 +334,30 @@ a:hover{
 	background-color:#058eb8;
 }
 
-.barChart hr {
-	height:1px;
-	margin-bottom:5px;
-	background-color:white;
+.barChart .x-axis {
+	height:10px;
+	margin-bottom:2px;
+	border: #bababa solid thin;
+	border-bottom:none;
 	margin-left:50px;
 }
 
-.barChart .scaleLabel {
-	color:white;
+.barChart .scaleLabels {
+	color:#bababa;
+	margin-left:50px;
+	width:150px;
+	position:relative;
+}
+
+.barChart #xmin {
+	float:left;
+	width:50%;
+	text-align:left;
+}
+
+.barChart #xmax {
+	float:left;
+	width:50%;
 	text-align:right;
 }
 
