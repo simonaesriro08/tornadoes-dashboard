@@ -8,6 +8,7 @@ dojo.require("esri.map");
 var TITLE = "Tornadoes"
 var BYLINE = "Curabitur tincidunt arcu sed nulla pretium vulputate. Quisque pretium feugiat scelerisque."
 var FEATURE_SERVICE_URL = "http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/rest/services/Tornados_Points/FeatureServer/0";
+var CSV_URL = "data/1950-2012_torn_scrubbed.csv";
 
 var FIELDNAME_DATE = "Date";
 var FIELDNAME_FUJITASCALE = "F_Scale";
@@ -95,7 +96,7 @@ function init() {
 
 	_spreadSheet = new Spreadsheet();
 	_spreadSheet.doLoad(
-		"data/1950-2012_torn_scrubbed.csv", 
+		CSV_URL, 
 		function(){$("#waitMsg").html("Unpacking...")}, 
 		function(){	reportLoadTime();finishInit()}
 		);
