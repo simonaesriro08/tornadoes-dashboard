@@ -50,5 +50,11 @@ function Spreadsheet() {
 		return _recs;
 	}
 	
+	this.filterByYear = function(year)
+	{
+		year = year.toString().slice(2);	
+		return $.grep(_spreadSheet.getRecords(), function(n, i){return n.date.split("/")[2] == year})		
+	}
+	
 	
 }

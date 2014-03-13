@@ -96,15 +96,7 @@ function init() {
 	_spreadSheet.doLoad(
 		"data/1950-2012_torn_scrubbed.csv", 
 		function(){$("#waitMsg").html("Unpacking...")}, 
-		function(){			
-					$("#loadTime").html("Load time: <b>"+_spreadSheet.getLoadTime()+"</b> seconds"+
-					" <br/ >"+
-					"- Fetch time: <b>"+_spreadSheet.getFetchTime()+"</b>"+
-					" <br/ >"+
-					"- Parse time: <b>"+_spreadSheet.getParseTime()+"</b>"									
-					);
-					finishInit();
-					}
+		function(){	reportLoadTime();finishInit()}
 		);
 
 	_map = new esri.Map("map",
@@ -167,8 +159,7 @@ function onBarChartSelect()
 
 function doYear(year)
 {
-	year = year.toString().slice(2);
-	_subset = $.grep(_spreadSheet.getRecords(), function(n, i){return n.date.split("/")[2] == year});
+	_subset = _spreadSheet.filterByYear(year);
 	_graphicMapManager.populateGraphics(_subset);
 }
 
@@ -340,5 +331,15 @@ function reportYear()
 {
 	var rec = $.grep(_summaryTable, function(n, i){return n.year == _barChart.getActiveYear()})[0];
 	_summaryInfoStrip.updateInfo(rec.year, rec.totalCount, rec.totalInjuries, rec.totalFatalities)
+}
+
+function reportLoadTime()
+{
+	$("#loadTime").html("Load time: <b>"+_spreadSheet.getLoadTime()+"</b> seconds"+
+	" <br/ >"+
+	"- Fetch time: <b>"+_spreadSheet.getFetchTime()+"</b>"+
+	" <br/ >"+
+	"- Parse time: <b>"+_spreadSheet.getParseTime()+"</b>"									
+	);	
 }
 
