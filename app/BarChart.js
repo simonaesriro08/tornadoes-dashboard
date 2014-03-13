@@ -3,7 +3,7 @@ function BarChart(div, years, callBack)
 	var _div = div;
 	var _years = years;
 	var _activeYear = "1980";
-	var _minHeight = 450;
+	var _minHeight = 550;
 	
 	build();
 	
@@ -77,19 +77,19 @@ function BarChart(div, years, callBack)
 			recs = $.grep(hash, function(n, i){return n.year == $(value).find(".labelDiv").html()});
 			if (recs.length == 0) val = 0;
 			else val = recs[0].totalCount;
-			$(value).find(".bar").qtip({
-				content:{
-					text: $(value).find(".labelDiv").html()+": <b>"+val+"</b> tornadoes"
-				},
-				style:{
-					classes: 'qtip-light qtip-rounded qtip-shadow'
-				},
-				position:{
-					adjust:{x:0,y:0},
-					my: 'left-center',
-					at:'right-center'
-				}				
-			});
+				$(value).find(".bar").qtip({
+					content:{
+						text: $(value).find(".labelDiv").html()+": <b>"+val+"</b> tornadoes"
+					},
+					style:{
+						classes: 'qtip-light qtip-rounded qtip-shadow'
+					},
+					position:{
+						adjust:{x:0,y:0},
+						my: 'left-center',
+						at:'right-center'
+					}				
+				});
 			if (!val) val = 0;
 			pct = val / maxCount;
 			pct = (pct * 100)+"%";
