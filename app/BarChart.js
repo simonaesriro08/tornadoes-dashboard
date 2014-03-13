@@ -3,6 +3,7 @@ function BarChart(div, years, callBack)
 	var _div = div;
 	var _years = years;
 	var _activeYear = "1980";
+	var _minHeight = 450;
 	
 	build();
 	
@@ -53,6 +54,15 @@ function BarChart(div, years, callBack)
 		$(".barChart .barCanvas").width($(".barChart li").width() - $(".barChart .labelDiv").width());
 		$(".barChart .bar").height($(".barChart .barCanvas").height() - 4);
 		$(".barChart .bar").css("top", 2);
+		if ($(_div).height() < _minHeight) {
+			// only show labels that are multiples of 5
+			$.each($(".barChart .labelDiv"), function(index, value){
+				if (parseInt($(value).html()) % 5) $(value).css("display", "none");
+				else $(value).css("display", "block");
+			});
+		} else {
+			$(".barChart .labelDiv").css("display", "block");
+		}
 	}
 	
 	this.setValues = function(hash) 

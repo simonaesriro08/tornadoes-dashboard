@@ -313,6 +313,7 @@ a:hover{
 .barChart .labelDiv {
 	width:50px;
 	position:absolute;
+	overflow:visible;
 }
 
 .barChart .barCanvas {
