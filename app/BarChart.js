@@ -79,7 +79,7 @@ function BarChart(div, years, callBack)
 			else val = recs[0].totalCount;
 			$(value).find(".bar").qtip({
 				content:{
-					text: $(value).find(".labelDiv").html()+": <b>"+val+"</b>"
+					text: $(value).find(".labelDiv").html()+": <b>"+val+"</b> tornadoes"
 				},
 				style:{
 					classes: 'qtip-light qtip-rounded qtip-shadow'
