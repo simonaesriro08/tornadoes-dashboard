@@ -2,7 +2,7 @@ function SummaryInfoStrip(div)
 {
 	var _div = div;
 	
-	var _year = $("<div class='infoValue' style='font-size:36px'></div>");
+	var _year = $("<div class='infoValue'></div>");
 	var _total = $("<div class='superBigGreenText'></div>");
 	var _injuries = $("<div class='infoValue'></div>");
 	var _fatalities = $("<div class='infoValue'></div>");

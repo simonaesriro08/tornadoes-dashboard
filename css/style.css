@@ -324,7 +324,7 @@ a:hover{
 }
 
 .barChart .bar {
-	background-color:#666;
+	background-color:#3f5f6a;
 	position:absolute;
 	width:0%;
 	cursor:pointer;
