@@ -18,8 +18,12 @@ var FEATURESERVICE_FIELDNAME_INJURIES = "Injuries";
 var FEATURESERVICE_FIELDNAME_FATALITIES = "Fatalities";
 var FEATURESERVICE_FIELDNAME_PROPERTYLOSS = "Loss";
 
+var CSV_FIELDNAME_DATE = "date";
+var CSV_FIELDNAME_FUJITASCALE = "f_scale";
+var CSV_FIELDNAME_LENGTH = "length_mi";
 var CSV_FIELDNAME_INJURIES = "injuries";
 var CSV_FIELDNAME_FATALITIES = "fatalities";
+var CSV_FIELDNAME_PROPERTYLOSS = "loss";
 
 var FORCE_SERVER = false;
 
@@ -188,24 +192,15 @@ function onTornadoClick(graphic)
 	tornadoAtts = {date: value, fujitaScale: value, length: value, injuries: value, fatalities: value, propertyLoss: value};
 	*/
 	
-	var query = new esri.tasks.Query();
-	query.where = "OBID = "+graphic.attributes.obid;
-	query.returnGeometry = true;
-	query.outFields = ["*"];
-
-	var queryTask = new esri.tasks.QueryTask(FEATURE_SERVICE_URL);
-	queryTask.execute(query, function(result){
-		var atts = result.features[0].attributes;
-		presentAtts({
-			date: scrubDate(atts[FEATURESERVICE_FIELDNAME_DATE]), 
-			fujitaScale: atts[FEATURESERVICE_FIELDNAME_FUJITASCALE], 
-			length: atts[FEATURESERVICE_FIELDNAME_LENGTH], 
-			injuries: atts[FEATURESERVICE_FIELDNAME_INJURIES], 
-			fatalities: atts[FEATURESERVICE_FIELDNAME_FATALITIES], 
-			propertyLoss: atts[FEATURESERVICE_FIELDNAME_PROPERTYLOSS]
-		});
-		slideOut();
-	});	
+	presentAtts({
+		date: graphic.attributes[CSV_FIELDNAME_DATE], 
+		fujitaScale: graphic.attributes[CSV_FIELDNAME_FUJITASCALE], 
+		length: graphic.attributes[CSV_FIELDNAME_LENGTH], 
+		injuries: graphic.attributes[CSV_FIELDNAME_INJURIES], 
+		fatalities: graphic.attributes[CSV_FIELDNAME_FATALITIES], 
+		propertyLoss: graphic.attributes[CSV_FIELDNAME_PROPERTYLOSS]
+	});
+	slideOut();
 }
 
 function presentAtts(atts)
