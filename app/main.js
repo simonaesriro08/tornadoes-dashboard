@@ -11,13 +11,6 @@ var FEATURE_SERVICE_URL = "http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/re
 var MAP_SERVICE_URL = "http://staging.storymaps.esri.com/arcgis/rest/services/Tornados/Tornados_Points_layers/MapServer";
 var CSV_URL = "data/1950-2012_torn_scrubbed.csv";
 
-var FEATURESERVICE_FIELDNAME_DATE= "Date";
-var FEATURESERVICE_FIELDNAME_FUJITASCALE = "F_Scale";
-var FEATURESERVICE_FIELDNAME_LENGTH = "Length_mi";
-var FEATURESERVICE_FIELDNAME_INJURIES = "Injuries";
-var FEATURESERVICE_FIELDNAME_FATALITIES = "Fatalities";
-var FEATURESERVICE_FIELDNAME_PROPERTYLOSS = "Loss";
-
 var CSV_FIELDNAME_DATE = "date";
 var CSV_FIELDNAME_FUJITASCALE = "f_scale";
 var CSV_FIELDNAME_LENGTH = "length_mi";
@@ -121,9 +114,24 @@ function init() {
 	}
 
 	dojo.connect(_map, 'onClick', function(event){
-		if (!event.graphic) {
-			_map.infoWindow.hide();			
-			retract();
+		if (_spreadSheet) {
+			if (!event.graphic) {
+				_map.infoWindow.hide();			
+				retract();
+			}
+		} else {
+			// server side identify
+			_gisService.identify(event.mapPoint, _map.extent.getWidth() / 75, _barChart.getActiveYear(), function(atts){
+				if (atts) {
+					_map.infoWindow.setContent("selection");
+					_map.infoWindow.show(esri.geometry.geographicToWebMercator(new esri.geometry.Point(atts.x, atts.y)));
+					presentAtts(atts);
+					slideOut();			
+				} else {
+					_map.infoWindow.hide();			
+					retract();
+				}
+			});
 		}
 	});
 		
@@ -211,13 +219,6 @@ function presentAtts(atts)
 	$("#injuriesValue").html(atts.injuries);
 	$("#fatalitiesValue").html(atts.fatalities);
 	$("#propertyLossValue").html(atts.propertyLoss);
-}
-
-function scrubDate(val)
-{
-	val = new Date(val);
-	val.setDate(val.getDate()+1)
-	return val.toLocaleDateString();
 }
 
 function slideOut()
