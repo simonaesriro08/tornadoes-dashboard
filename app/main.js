@@ -8,6 +8,7 @@ dojo.require("esri.map");
 var TITLE = "Tornadoes"
 var BYLINE = "Curabitur tincidunt arcu sed nulla pretium vulputate. Quisque pretium feugiat scelerisque."
 var FEATURE_SERVICE_URL = "http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/rest/services/Tornados_Points/FeatureServer/0";
+var MAP_SERVICE_URL = "http://staging.storymaps.esri.com/arcgis/rest/services/Tornados/Tornados_Points_layers/MapServer";
 var CSV_URL = "data/1950-2012_torn_scrubbed.csv";
 
 var FIELDNAME_DATE = "Date";
@@ -20,12 +21,14 @@ var FIELDNAME_PROPERTYLOSS = "Loss";
 var CSV_FIELDNAME_INJURIES = "injuries";
 var CSV_FIELDNAME_FATALITIES = "fatalities";
 
+var FORCE_SERVER = false;
+
 /******************************************************
 ***************** end config section ******************
 *******************************************************/
 
 var _map;
-var _graphicMapManager;
+var _mapManager;
 var _barChart;
 var _summaryTable;
 var _summaryInfoStrip;
@@ -94,23 +97,25 @@ function init() {
 	$("#title").append(TITLE);
 	$("#subtitle").append(BYLINE);
 
-	_spreadSheet = new Spreadsheet();
-	_spreadSheet.doLoad(
-		CSV_URL, 
-		function(){$("#waitMsg").html("Unpacking...")}, 
-		function(){	reportLoadTime();finishInit()}
-		);
-		
-	_gisService = new GISService();
-
 	_map = new esri.Map("map",
 						{
 							basemap:"gray",
 							slider: false
 						});
-						
-	_graphicMapManager = new GraphicMapManager(_map, onTornadoClick);
-	
+	_gisService = new GISService();
+
+	if (_isMobile || FORCE_SERVER) {
+		_mapManager = new DynamicServiceMapManager(_map, MAP_SERVICE_URL);
+	} else {
+		_spreadSheet = new Spreadsheet();
+		_spreadSheet.doLoad(
+			CSV_URL, 
+			function(){$("#waitMsg").html("Unpacking...")}, 
+			function(){	reportLoadTime();finishInit()}
+			);
+		_mapManager = new GraphicMapManager(_map, onTornadoClick);
+	}
+
 	dojo.connect(_map, 'onClick', function(event){
 		if (!event.graphic) {
 			_map.infoWindow.hide();			
@@ -129,10 +134,12 @@ function init() {
 }
 
 function finishInit() {
-	
+
 	if (!_map) return;
 	if (!_map.loaded) return;
-	if (!_spreadSheet.getRecords()) return;
+	if (_spreadSheet) {
+		if (!_spreadSheet.getRecords()) return;
+	}
 	
 	doYear(_barChart.getActiveYear());	
 	$("#year").html(_barChart.getActiveYear());
@@ -163,8 +170,12 @@ function onBarChartSelect()
 
 function doYear(year)
 {
-	_subset = _spreadSheet.filterByYear(year);
-	_graphicMapManager.populateGraphics(_subset);
+	if (_spreadSheet) {
+		_subset = _spreadSheet.filterByYear(year);
+		_mapManager.populateGraphics(_subset);
+	} else {
+		_mapManager.setYearFilter(year)
+	}
 }
 
 function onTornadoClick(graphic)
@@ -250,7 +261,7 @@ function summarizeByYear(callBack)
 	]
 	*/
 	
-	if (!_isMobile) {
+	if (_spreadSheet) {
 		_summaryTable = _spreadSheet.summarizeForExtent(_map.extent);
 		_barChart.setValues(_summaryTable);
 		reportYear();	
