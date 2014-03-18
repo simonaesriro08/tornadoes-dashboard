@@ -182,6 +182,11 @@ function onTornadoClick(graphic)
 {
 	_map.infoWindow.setContent("selection");
 	_map.infoWindow.show(graphic.geometry);
+
+	/*
+	Tornado atts should look like this:
+	tornadoAtts = {date: value, fujitaScale: value, length: value, injuries: value, fatalities: value, propertyLoss: value};
+	*/
 	
 	var query = new esri.tasks.Query();
 	query.where = "OBID = "+graphic.attributes.obid;
@@ -191,14 +196,26 @@ function onTornadoClick(graphic)
 	var queryTask = new esri.tasks.QueryTask(FEATURE_SERVICE_URL);
 	queryTask.execute(query, function(result){
 		var atts = result.features[0].attributes;
-		$("#tornadoDateValue").html(scrubDate(atts[FIELDNAME_DATE]));
-		$("#fujitaScaleValue").html(atts[FIELDNAME_FUJITASCALE]);
-		$("#lengthValue").html(atts[FIELDNAME_LENGTH]);
-		$("#injuriesValue").html(atts[FIELDNAME_INJURIES]);
-		$("#fatalitiesValue").html(atts[FIELDNAME_FATALITIES]);
-		$("#propertyLossValue").html(atts[FIELDNAME_PROPERTYLOSS]);
+		presentAtts({
+			date: scrubDate(atts[FIELDNAME_DATE]), 
+			fujitaScale: atts[FIELDNAME_FUJITASCALE], 
+			length: atts[FIELDNAME_LENGTH], 
+			injuries: atts[FIELDNAME_INJURIES], 
+			fatalities: atts[FIELDNAME_FATALITIES], 
+			propertyLoss: atts[FIELDNAME_PROPERTYLOSS]
+		});
 		slideOut();
 	});	
+}
+
+function presentAtts(atts)
+{
+	$("#tornadoDateValue").html(atts.date);
+	$("#fujitaScaleValue").html(atts.fujitaScale);
+	$("#lengthValue").html(atts.length);
+	$("#injuriesValue").html(atts.injuries);
+	$("#fatalitiesValue").html(atts.fatalities);
+	$("#propertyLossValue").html(atts.propertyLoss);
 }
 
 function scrubDate(val)
