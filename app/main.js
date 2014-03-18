@@ -11,12 +11,12 @@ var FEATURE_SERVICE_URL = "http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/re
 var MAP_SERVICE_URL = "http://staging.storymaps.esri.com/arcgis/rest/services/Tornados/Tornados_Points_layers/MapServer";
 var CSV_URL = "data/1950-2012_torn_scrubbed.csv";
 
-var FIELDNAME_DATE = "Date";
-var FIELDNAME_FUJITASCALE = "F_Scale";
-var FIELDNAME_LENGTH = "Length_mi";
-var FIELDNAME_INJURIES = "Injuries";
-var FIELDNAME_FATALITIES = "Fatalities";
-var FIELDNAME_PROPERTYLOSS = "Loss";
+var FEATURESERVICE_FIELDNAME_DATE= "Date";
+var FEATURESERVICE_FIELDNAME_FUJITASCALE = "F_Scale";
+var FEATURESERVICE_FIELDNAME_LENGTH = "Length_mi";
+var FEATURESERVICE_FIELDNAME_INJURIES = "Injuries";
+var FEATURESERVICE_FIELDNAME_FATALITIES = "Fatalities";
+var FEATURESERVICE_FIELDNAME_PROPERTYLOSS = "Loss";
 
 var CSV_FIELDNAME_INJURIES = "injuries";
 var CSV_FIELDNAME_FATALITIES = "fatalities";
@@ -197,12 +197,12 @@ function onTornadoClick(graphic)
 	queryTask.execute(query, function(result){
 		var atts = result.features[0].attributes;
 		presentAtts({
-			date: scrubDate(atts[FIELDNAME_DATE]), 
-			fujitaScale: atts[FIELDNAME_FUJITASCALE], 
-			length: atts[FIELDNAME_LENGTH], 
-			injuries: atts[FIELDNAME_INJURIES], 
-			fatalities: atts[FIELDNAME_FATALITIES], 
-			propertyLoss: atts[FIELDNAME_PROPERTYLOSS]
+			date: scrubDate(atts[FEATURESERVICE_FIELDNAME_DATE]), 
+			fujitaScale: atts[FEATURESERVICE_FIELDNAME_FUJITASCALE], 
+			length: atts[FEATURESERVICE_FIELDNAME_LENGTH], 
+			injuries: atts[FEATURESERVICE_FIELDNAME_INJURIES], 
+			fatalities: atts[FEATURESERVICE_FIELDNAME_FATALITIES], 
+			propertyLoss: atts[FEATURESERVICE_FIELDNAME_PROPERTYLOSS]
 		});
 		slideOut();
 	});	
