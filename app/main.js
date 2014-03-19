@@ -248,16 +248,12 @@ function hoverInfoPos(x,y){
 }
 
 
-function handleWindowResize() {
-	
-	if ((($("body").height() <= 500) || ($("body").width() <= 800)) || _isEmbed) $("#header").height(0);
-	else $("#header").height(115);
-	
-	$("#content-container").height($("body").height() - $("#header").height());
-	
+function handleWindowResize() 
+{
+
 	$("#map").css("left", $("#side-pane").outerWidth());
 	$("#map").width($("body").width() - $("#side-pane").outerWidth());
-	$("#map").height($("body").height() - $("#header").height());
+	$("#map").height($("body").height());
 	
 	_barChart.resize();
 	if (_map) _map.resize();
