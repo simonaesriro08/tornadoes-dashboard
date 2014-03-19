@@ -72,7 +72,8 @@ function Spreadsheet() {
 						year:year, 
 						totalCount:1, 
 						totalInjuries:parseInt(value[CSV_FIELDNAME_INJURIES]), 
-						totalFatalities:parseInt(value[CSV_FIELDNAME_FATALITIES])
+						totalFatalities:parseInt(value[CSV_FIELDNAME_FATALITIES]),
+						totalPropertyLoss:parseInt(value[CSV_FIELDNAME_PROPERTYLOSS])
 						});
 				} else {
 					// entry already exists; just add in values
@@ -80,6 +81,7 @@ function Spreadsheet() {
 					rec.totalCount = rec.totalCount + 1;
 					rec.totalInjuries = parseInt(rec.totalInjuries) + parseInt(value[CSV_FIELDNAME_INJURIES]);
 					rec.totalFatalities = parseInt(rec.totalFatalities) + parseInt(value[CSV_FIELDNAME_FATALITIES]);
+					rec.totalPropertyLoss = parseInt(rec.totalPropertyLoss) + parseInt(value[CSV_FIELDNAME_PROPERTYLOSS]);
 				}
 			}
 		});
