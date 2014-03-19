@@ -1,5 +1,7 @@
-function DynamicServiceMapManager(map, url)
+function DynamicServiceMapManager(map, url, initCallBack)
 {
+	var _map = map;
+	var _firstMapReady = false;
 
 	this.setYearFilter = function(year)
 	{
@@ -9,11 +11,20 @@ function DynamicServiceMapManager(map, url)
 		}
 		_layer.setLayerDefinitions(layerDefinitions);
 	}
+	
+	this.isFirstMapReady = function()
+	{
+		return _firstMapReady;
+	}
 
-	var _map = map;
 	var _layer = new esri.layers.ArcGISDynamicMapServiceLayer(url);
-	this.setYearFilter("1980");	
+	var handle = dojo.connect(_layer, 'onUpdateEnd', function(event) {
+		_firstMapReady = true;
+		initCallBack();
+		dojo.disconnect(handle);
+	});
 	_map.addLayer(_layer);
-	
-	
+
+	this.setYearFilter("1980");	
+		
 }

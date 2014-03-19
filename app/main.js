@@ -102,7 +102,11 @@ function init() {
 	_gisService = new GISService();
 
 	if (_isMobile || FORCE_SERVER) {
-		_mapManager = new DynamicServiceMapManager(_map, MAP_SERVICE_URL);
+		_mapManager = new DynamicServiceMapManager(
+			_map, 
+			MAP_SERVICE_URL, 
+			function(){finishInit()}
+		);
 	} else {
 		_spreadSheet = new Spreadsheet();
 		_spreadSheet.doLoad(
@@ -151,6 +155,8 @@ function finishInit() {
 	if (!_map.loaded) return;
 	if (_spreadSheet) {
 		if (!_spreadSheet.getRecords()) return;
+	} else {
+		if (!_mapManager.isFirstMapReady()) return;
 	}
 	
 	doYear(_barChart.getActiveYear());	
