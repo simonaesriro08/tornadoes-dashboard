@@ -4,8 +4,8 @@ function DynamicServiceMapManager(map, url)
 	this.setYearFilter = function(year)
 	{
 		var layerDefinitions = [];
-		for (var i = 0; i < 6; i++) {
-			layerDefinitions[i] = "Year = "+year+" AND F_Scale = "+(5 - i).toString();
+		for (var i = 0; i < 13; i++) {
+			layerDefinitions[i] = "Year = "+year;
 		}
 		_layer.setLayerDefinitions(layerDefinitions);
 	}

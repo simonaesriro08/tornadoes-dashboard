@@ -8,7 +8,7 @@ dojo.require("esri.map");
 var TITLE = "Twister Dash: Exploring Three Decades of Violent Storms"
 var BYLINE = "Although tornadoes can occur throughout the year, prime time for twisters in the U.S. is mid-March through June.  Numbers on the map represent the Fujita Scale, which measures the violence of twisters.  The highest, F5, represents 'incredible damage.'";
 var FEATURE_SERVICE_URL = "http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/rest/services/Tornados_Points/FeatureServer/0";
-var MAP_SERVICE_URL = "http://staging.storymaps.esri.com/arcgis/rest/services/Tornados/Tornados_Points_layers/MapServer";
+var MAP_SERVICE_URL = "http://staging.storymaps.esri.com/arcgis/rest/services/Tornados/Tornados_fwm/MapServer";
 var CSV_URL = "data/1950-2012_torn_scrubbed.csv";
 
 var CSV_FIELDNAME_DATE = "date";
