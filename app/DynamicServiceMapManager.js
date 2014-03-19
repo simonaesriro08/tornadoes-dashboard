@@ -7,7 +7,8 @@ function DynamicServiceMapManager(map, url, initCallBack)
 	{
 		var layerDefinitions = [];
 		for (var i = 0; i < 13; i++) {
-			layerDefinitions[i] = "Year = "+year;
+			if (i % 2) layerDefinitions[i] = "only_year = "+year;
+			else layerDefinitions[i] = "Year = "+year;
 		}
 		_layer.setLayerDefinitions(layerDefinitions);
 	}
