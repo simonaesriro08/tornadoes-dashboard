@@ -112,13 +112,25 @@
 <body class="claro">
         
     <div id="side-pane">
-        <div id="bar-strip">
-            <div style="font-size:22px;color:white">Explore Tornadoes</div>
+    	<div id="header">
+            <h1 id="title"></h1>
+            <h2 id="subtitle"></h2>
             <ul id="instructions">
-            <li><span>Pan and zoom map</span> to explore</li>
-            <li><span>Click on graph</span> to see annual totals for the current map view</li>
-            <li><span>Click on tornado</span> for stats about individual twisters</li>
-            </ul>
+                <li><span>Pan and zoom map</span> to explore</li>
+                <li><span>Click on graph</span> to see annual totals for the current map view</li>
+                <li><span>Click on tornado</span> for stats about individual twisters</li>
+            </ul>   
+            <div style="width:100%;height:25px">
+                <div id="social">
+                    <a id="msLink" href="http://storymaps.esri.com" target="_blank">A story map </a>
+                    <span class='st_facebook' ></span>
+                    <span class='st_twitter' st_via="EsriStoryMaps"></span>
+                    <span class='st_sharethis'></span>
+                </div>
+                <div id="logo"><a id="logoLink" href="http://www.esri.com" target="_blank"><img id="logoImg" src="resources/images/esriGlobeLogow.png" alt="Esri - Home"></a></div>
+            </div>
+        </div>
+        <div id="bar-strip">
             <div class="barChart"></div>
         </div>
         <div id="swap-container">

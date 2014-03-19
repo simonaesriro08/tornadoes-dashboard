@@ -50,63 +50,71 @@ a {
 a:hover{
 	text-decoration:underline;
 }
+
+
+#side-pane {
+	width:440px;
+	height:100%;
+	float:left;
+	background-color:black;
+	color:#bababa;
+	font-family:Arial, Helvetica, sans-serif;
+}
 	  
 #header {
-	height:115px;
 	background:#444;
-	color:#fff;
-	margin:0;
-	overflow:hidden;
-}
-
-#headerText{
-	padding-top:20px;
-	padding-left:25px;
-	width:80%;
-	float:left;
+	padding:20px;
 }
 
 #title {
+	color:#fff;
 	font-size:20px;
 	font-weight:bold;
 	text-align:left;
 	margin-top:0px;
-	white-space: nowrap;  
-	overflow: hidden;  
-	text-overflow: ellipsis;
-	-o-text-overflow:ellipsis;
 }
 
 #subtitle {
+	color:#bababa;
 	font-size:13px;
 	margin-top:10px;
 	overflow: hidden;
 	font-weight:normal;
-	font-family:Georgia, "Times New Roman", Times, serif;
 }
 
-#logoArea{
-	float:right;
-	padding-top:25px;
-	padding-right:25px;
-	text-align:right;
+#instructions {
+	font-size:12px;
+	padding-top:15px;
+	padding-bottom:20px;
+	list-style:disc outside none;
+	margin-left:20px	
+}
+
+#instructions li {
+	padding-top:5px;
+}
+
+#instructions li span {
+	font-weight:bold;
+	color:white;
 }
 
 #social{
-	margin-bottom:20px;
+	float:left;
 }
 
 #msLink{
-	color:#fff;
-	font-family:Arial, Helvetica, sans-serif;
 	font-weight:bold;
 	font-size:13px;
 	outline:none;
+	color:#bababa;
 }
 
 #logo{
 	border:none;
 	outline:none;
+	float:left;
+	padding-left:160px;
 }
 
 #logoImg{
@@ -171,39 +179,13 @@ a:hover{
 	padding-top:20px;
 }
 
-#side-pane {
-	width:420px;
-	height:100%;
-	float:left;
-	background-color:black;
-	color:#bababa;
-	font-family:Arial, Helvetica, sans-serif;
-	padding:20px;
-}
-
-#instructions {
-	font-size:12px;
-	padding-top:15px;
-	padding-bottom:20px;
-	list-style:disc outside none;
-	margin-left:20px	
-}
-
-#instructions li {
-	padding-top:5px;
-}
-
-#instructions li span {
-	font-weight:bold;
-	color:white;
-}
-
 #bar-strip {
 	float:left;
 	width:200px;
 	height:100%;
-	overflow:hidden;
 	padding-right:20px;
+	padding-top:20px;
+	padding-left:20px;
 }
 
 #swap-container {
