@@ -66,21 +66,21 @@ function init() {
 			}
 		}
 	}
-	
+
 	var arrYears = [];
 	for (var year = 1980; year <= 2012; year++)
 	{
 		arrYears.push(year);
 	}	
 	_barChart = new BarChart($(".barChart").eq(0), arrYears, onBarChartSelect);
-	
+
 	_summaryInfoStrip = new SummaryInfoStrip($("#summary-info-strip").eq(0));
 	
 	// jQuery event assignment
 	
 	$(this).resize(handleWindowResize);
 	handleWindowResize();
-	
+		
 	$("#zoomIn").click(function(e) {
         _map.setLevel(_map.getLevel()+1);
     });
@@ -173,6 +173,7 @@ function finishInit() {
 			
 	_map.centerAndZoom([-98.27, 38.73], 4);
 	
+	setTimeout(function(){handleWindowResize()});
 	setTimeout(function(){_homeExtent = _map.extent}, 1000);
 	
 }
@@ -256,12 +257,19 @@ function hoverInfoPos(x,y){
 
 function handleWindowResize() 
 {
-	
+
+	if (($("body").height() <= 600) || _isEmbed) $("#header").css("display", "none");
+	else $("#header").css("display", "block");
+
 	$("#map").css("left", $("#side-pane").outerWidth());
 	$("#map").width($("body").width() - $("#side-pane").outerWidth());
 	$("#map").height($("body").height());
-	
-	_barChart.resize();
+
+	if ($("#header").css("display") == "none") $("#bar-strip").height($("body").height() - 20);
+	else $("#bar-strip").height($("body").height() - ($("#header").outerHeight() + 20));
+
+	$(".barChart").height($("#bar-strip").innerHeight() - 20);	
+	if (_barChart) _barChart.resize();
 	if (_map) _map.resize();
 	
 }
