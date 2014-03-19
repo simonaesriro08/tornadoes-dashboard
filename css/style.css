@@ -205,6 +205,7 @@ a:hover{
 }
 
 #tornado-info-strip {
+	padding-top:20px;
 	position:absolute;
 	top:0px;
 	left:-230px;
