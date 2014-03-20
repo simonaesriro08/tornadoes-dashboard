@@ -125,7 +125,7 @@ function init() {
 			}
 		} else {
 			// server side identify
-			_gisService.identify(event.mapPoint, _map.extent.getWidth() / 75, _barChart.getActiveYear(), function(atts){
+			_gisService.identify(event.mapPoint, _map.extent.getWidth() / 50, _barChart.getActiveYear(), function(atts){
 				if (atts) {
 					_map.graphics.clear();
 					_map.graphics.add(new esri.Graphic(
