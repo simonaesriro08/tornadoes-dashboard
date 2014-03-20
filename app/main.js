@@ -120,19 +120,22 @@ function init() {
 	dojo.connect(_map, 'onClick', function(event){
 		if (_spreadSheet) {
 			if (!event.graphic) {
-				_map.infoWindow.hide();			
+				_map.graphics.clear();			
 				retract();
 			}
 		} else {
 			// server side identify
 			_gisService.identify(event.mapPoint, _map.extent.getWidth() / 75, _barChart.getActiveYear(), function(atts){
 				if (atts) {
-					_map.infoWindow.setContent("selection");
-					_map.infoWindow.show(esri.geometry.geographicToWebMercator(new esri.geometry.Point(atts.x, atts.y)));
+					_map.graphics.clear();
+					_map.graphics.add(new esri.Graphic(
+						esri.geometry.geographicToWebMercator(new esri.geometry.Point(atts.x, atts.y)), 
+						createPictureMarkerSymbol(atts.fujitaScale)
+					));
 					presentAtts(atts);
 					slideOut();			
 				} else {
-					_map.infoWindow.hide();			
+					_map.graphics.clear();			
 					retract();
 				}
 			});
@@ -180,7 +183,7 @@ function finishInit() {
 
 function onBarChartSelect()
 {
-	_map.infoWindow.hide();
+	_map.graphics.clear();
 	retract();
 	doYear(_barChart.getActiveYear());
 	$("#year").html(_barChart.getActiveYear());	
@@ -199,9 +202,9 @@ function doYear(year)
 
 function onTornadoClick(graphic)
 {
-	_map.infoWindow.setContent("selection");
-	_map.infoWindow.show(graphic.geometry);
-
+	_map.graphics.clear();
+	_map.graphics.add(new esri.Graphic(graphic.geometry, createPictureMarkerSymbol(graphic.attributes[CSV_FIELDNAME_FUJITASCALE])));
+	
 	/*
 	Tornado atts should look like this:
 	tornadoAtts = {date: value, fujitaScale: value, length: value, injuries: value, fatalities: value, propertyLoss: value};
@@ -217,6 +220,17 @@ function onTornadoClick(graphic)
 	});
 	slideOut();
 }
+
+function createPictureMarkerSymbol(score)
+{
+	var specs = {0:20, 1:27, 2:30, 3:36,4:42,5:48}
+	return new esri.symbol.PictureMarkerSymbol(
+				"resources/images/Tornado_Xa-select.png".replace("X", score), 
+				parseInt(specs[score] * 0.75),
+				parseInt(specs[score] * 0.75)
+			);	
+}
+
 
 function presentAtts(atts)
 {
