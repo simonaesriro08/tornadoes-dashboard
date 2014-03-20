@@ -19,11 +19,11 @@ function BarChart(div, years, callBack)
 			$(labelDiv).addClass("barChart labelDiv");
 			barCanvas = $("<div class='barCanvas'></div>");
 			bar = $("<div class='bar'></div>");
-			if (value == _activeYear) $(bar).addClass("active");
 			$(barCanvas).append(bar);
 			li = $("<li></li>");
 			$(li).append(labelDiv).append(barCanvas);
 			$(ul).append(li);
+			if (value == _activeYear) $(li).addClass("active");
 		});
 		$(_div).append(ul);
 		$(_div).append("<div class='x-axis'></div>");
@@ -38,11 +38,7 @@ function BarChart(div, years, callBack)
 		$(_div).append(scaleNumbers);
 		
 		$(".barChart .bar").click(function(e) {
-			$(".barChart li").removeClass("active");
-			var li = $(e.currentTarget).parent().parent();
-			$(li).addClass("active");
-			_activeYear = $(li).find(".labelDiv").html();
-			callBack();
+			activate($(e.currentTarget).parent().parent());
         });
 		
 	}
@@ -103,5 +99,30 @@ function BarChart(div, years, callBack)
 	{
 		return _activeYear;
 	}
+	
+	this.stepUp = function()
+	{
+		var index = $.inArray($(".barChart li.active")[0], $(".barChart li"));
+		if (index == 0) return;
+		index--;
+		activate($(".barChart li")[index]);
+	}
+	
+	this.stepDown = function()
+	{
+		var index = $.inArray($(".barChart li.active")[0], $(".barChart li"));
+		if (index == ($(".barChart li").length - 1)) return;
+		index++;
+		activate($(".barChart li")[index]);
+	}
+	
+	function activate(li)
+	{
+		$(".barChart li").removeClass("active");
+		$(li).addClass("active");
+		_activeYear = $(li).find(".labelDiv").html();
+		callBack();
+	}
+	
 	
 }

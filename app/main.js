@@ -179,6 +179,19 @@ function finishInit() {
 	setTimeout(function(){handleWindowResize()});
 	setTimeout(function(){_homeExtent = _map.extent}, 1000);
 	
+	$(document).keydown(onKeyDown);	
+	
+}
+
+function onKeyDown(e)
+{
+	if ((e.keyCode != 38) && (e.keyCode != 40)) {
+		return;
+	}			
+	if (e.keyCode == 40) 
+		_barChart.stepDown() 
+	else 
+		_barChart.stepUp();	
 }
 
 function onBarChartSelect()
