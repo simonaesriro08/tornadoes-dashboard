@@ -158,16 +158,6 @@ function GraphicMapManager(map, onClickHandler) {
 		return graphic;
 	}
 	
-	function createSimpleMarkerSymbol(size, rgb, rgbOutline)
-	{
-		return new esri.symbol.SimpleMarkerSymbol(
-					esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE, 
-					size,
-					new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, rgbOutline, 1),
-					rgb
-				);	
-	}
-	
 	function moveGraphicToFront(graphic)
 	{
 		var dojoShape = graphic.getDojoShape();
