@@ -279,8 +279,8 @@ function summarizeByYear(callBack)
 	/*
 	Summary table should look like this:
 	_summaryTable = [
-		{year: 1980, total-count: 40, total-injuries: 3, total-fatalities: 0}
-		{year: 1981, total-count: 31, total-injuries: 5, total-fatalities: 0}, 
+		{year: value, totalCount: value, totalInjuries: value, totalFatalities: value, totalPropertyLoss: value},
+		{year: value, totalCount: value, totalInjuries: value, totalFatalities: value, totalPropertyLoss: value}
 	]
 	*/
 	
