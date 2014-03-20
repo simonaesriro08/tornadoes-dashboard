@@ -120,7 +120,7 @@ function GraphicMapManager(map, onClickHandler) {
 		var sr = new esri.SpatialReference(4326);
 		$.each(records, function(index, value){
 			  var pt = new esri.geometry.Point(value.starting_long, value.starting_lat, sr);
-			  var sym = createPictureMarkerSymbol(value.f_scale);
+			  var sym = Helper.createPictureMarkerSymbol(value.f_scale, "resources/images/Tornado_Xa.png");
 			  var graphic = new esri.Graphic(pt, sym, value);
 			  if (value.f_scale == 5) {
 				  _layer5.add(graphic);		
@@ -156,16 +156,6 @@ function GraphicMapManager(map, onClickHandler) {
 		var sym = new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, _colors[value.f_scale], value.f_scale);
 		var graphic = new esri.Graphic(pLine, sym)
 		return graphic;
-	}
-	
-	function createPictureMarkerSymbol(score)
-	{
-		var specs = {0:20, 1:27, 2:30, 3:36,4:42,5:48}
-		return new esri.symbol.PictureMarkerSymbol(
-					"resources/images/Tornado_Xa.png".replace("X", score), 
-					parseInt(specs[score] * 0.75),
-					parseInt(specs[score] * 0.75)
-				);	
 	}
 	
 	function createSimpleMarkerSymbol(size, rgb, rgbOutline)

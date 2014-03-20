@@ -130,7 +130,7 @@ function init() {
 					_map.graphics.clear();
 					_map.graphics.add(new esri.Graphic(
 						esri.geometry.geographicToWebMercator(new esri.geometry.Point(atts.x, atts.y)), 
-						createPictureMarkerSymbol(atts.fujitaScale)
+						Helper.createPictureMarkerSymbol(atts.fujitaScale, "resources/images/Tornado_Xa-select.png")
 					));
 					presentAtts(atts);
 					slideOut();			
@@ -203,7 +203,15 @@ function doYear(year)
 function onTornadoClick(graphic)
 {
 	_map.graphics.clear();
-	_map.graphics.add(new esri.Graphic(graphic.geometry, createPictureMarkerSymbol(graphic.attributes[CSV_FIELDNAME_FUJITASCALE])));
+	_map.graphics.add(
+		new esri.Graphic(
+			graphic.geometry, 
+			Helper.createPictureMarkerSymbol(
+				graphic.attributes[CSV_FIELDNAME_FUJITASCALE], 
+				"resources/images/Tornado_Xa-select.png"
+			)
+		)
+	);
 	
 	/*
 	Tornado atts should look like this:
@@ -220,17 +228,6 @@ function onTornadoClick(graphic)
 	});
 	slideOut();
 }
-
-function createPictureMarkerSymbol(score)
-{
-	var specs = {0:20, 1:27, 2:30, 3:36,4:42,5:48}
-	return new esri.symbol.PictureMarkerSymbol(
-				"resources/images/Tornado_Xa-select.png".replace("X", score), 
-				parseInt(specs[score] * 0.75),
-				parseInt(specs[score] * 0.75)
-			);	
-}
-
 
 function presentAtts(atts)
 {
