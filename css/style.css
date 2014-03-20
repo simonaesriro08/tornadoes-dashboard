@@ -295,6 +295,10 @@ a:hover{
 	overflow:visible;
 }
 
+.barChart li.active .labelDiv {
+	color:#058eb8;
+}
+
 .barChart .barCanvas {
 	width:100%;
 	height:100%;
@@ -310,7 +314,7 @@ a:hover{
 	cursor:pointer;
 }
 
-.barChart .bar.active{
+.barChart li.active .bar {
 	background-color:#058eb8;
 }
 

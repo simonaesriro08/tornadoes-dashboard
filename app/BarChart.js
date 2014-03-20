@@ -37,10 +37,11 @@ function BarChart(div, years, callBack)
 		
 		$(_div).append(scaleNumbers);
 		
-		$(".barChart li").click(function(e) {
-			$(".barChart .bar").removeClass("active");
-			$(e.target).addClass("active");
-			_activeYear = $(e.target).parent().parent().find(".labelDiv").html();
+		$(".barChart .bar").click(function(e) {
+			$(".barChart li").removeClass("active");
+			var li = $(e.currentTarget).parent().parent();
+			$(li).addClass("active");
+			_activeYear = $(li).find(".labelDiv").html();
 			callBack();
         });
 		
@@ -76,6 +77,7 @@ function BarChart(div, years, callBack)
 			recs = $.grep(hash, function(n, i){return n.year == $(value).find(".labelDiv").html()});
 			if (recs.length == 0) val = 0;
 			else val = recs[0].totalCount;
+			if (!_isMobile) {
 				$(value).find(".bar").qtip({
 					content:{
 						text: $(value).find(".labelDiv").html()+": <b>"+val+"</b> tornadoes"
@@ -89,6 +91,7 @@ function BarChart(div, years, callBack)
 						at:'right-center'
 					}				
 				});
+			}
 			if (!val) val = 0;
 			pct = val / maxCount;
 			pct = (pct * 100)+"%";
