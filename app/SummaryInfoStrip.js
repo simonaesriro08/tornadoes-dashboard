@@ -25,7 +25,7 @@ function SummaryInfoStrip(div)
 	
 	$(_div).append(_propertyLoss);
 	$(_div).append("<hr/>");
-	$(_div).append("<div class='infoCaption'>Property Loss</div>");
+	$(_div).append("<div class='infoCaption'>Property Loss ($millions)</div>");
 		
 	this.updateInfo = function(year, total, injuries, fatalities, propertyLoss)
 	{
