@@ -205,27 +205,28 @@ a:hover{
 	border-left-width:thin;
 }
 
-#tornado-info-strip {
-	padding-top:20px;
+
+/* info-strip stuff */
+
+.info-strip {
 	position:absolute;
 	top:0px;
-	left:-230px;
-	height:100%;
 	width:180px;
-	z-index:11;
+	height:100%;
+	overflow-y:auto;
+	overflow-x:hidden;
 	background-color:black;
 }
 
-#summary-info-strip {
-	position:absolute;
-	top:0px;
-	left:20px;
-	height:100%;
-	width:165;
-	z-index:10;
+#tornado-info-strip {
+	left:-230px;
+	z-index:11;
 }
 
-/* info-strip stuff */
+#summary-info-strip {
+	left:20px;
+	z-index:10;
+}
 
 .info-strip hr {
 	background-color:#3f3f3f;

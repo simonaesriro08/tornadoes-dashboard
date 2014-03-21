@@ -303,6 +303,13 @@ function handleWindowResize()
 	else $("#bar-strip").height($("body").height() - ($("#header").outerHeight() + 20));
 
 	$(".barChart").height($("#bar-strip").innerHeight() - 20);	
+	
+	if ($("#header").css("display") == "none") $("#swap-container").height($("body").height() - 20);
+	else $("#swap-container").height($("body").height() - ($("#header").outerHeight() + 20));
+	
+	$(".info-strip").height($("#swap-container").outerHeight()-8);
+	
+	
 	if (_barChart) _barChart.resize();
 	if (_map) _map.resize();
 	
