@@ -1,5 +1,6 @@
 dojo.require("esri.arcgis.utils");
 dojo.require("esri.map");
+dojo.require("esri.dijit.Geocoder");
 
 /******************************************************
 ***************** begin config section ****************
@@ -179,7 +180,12 @@ function finishInit() {
 	setTimeout(function(){handleWindowResize()});
 	setTimeout(function(){_homeExtent = _map.extent}, 1000);
 	
-	$(document).keydown(onKeyDown);	
+	$(document).keydown(onKeyDown);
+	
+
+    var geocoder = new esri.dijit.Geocoder({map: _map}, "search");
+    geocoder.startup();
+
 	
 }
 
@@ -311,8 +317,8 @@ function summarizeByYear(callBack)
 	if (_spreadSheet) {
 		_summaryTable = _spreadSheet.summarizeForExtent(_map.extent);
 		_barChart.setValues(_summaryTable);
-		reportYear();	
-		if (callBack) callBack();
+		reportYear();
+		if (callBack) callBack();	
 	} else {
 		_gisService.summarizeForExtent(_map.extent, function(result) {
 			var arr = [];
@@ -330,7 +336,12 @@ function summarizeByYear(callBack)
 
 function reportYear()
 {
-	var rec = $.grep(_summaryTable, function(n, i){return n.year == _barChart.getActiveYear()})[0];
+	var rec = $.grep(_summaryTable, function(n, i){return n.year == _barChart.getActiveYear()});
+	if (rec.length > 0) {
+		rec = rec[0];
+	} else {
+		rec = {year: _barChart.getActiveYear(), totalCount: 0, totalInjuries: 0, totalFatalities: 0, totalPropertyLoss: 0}
+	}
 	_summaryInfoStrip.updateInfo(rec.year, rec.totalCount, rec.totalInjuries, rec.totalFatalities, rec.totalPropertyLoss)
 }
 

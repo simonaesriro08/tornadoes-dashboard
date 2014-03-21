@@ -359,3 +359,11 @@ a:hover{
 .qtip-light .qtip-content {
 	padding: 10px;
 }
+
+#search {
+	display: block;
+	position: absolute;
+	z-index: 200;
+	top: 20px;
+	left: 74px;
+}
