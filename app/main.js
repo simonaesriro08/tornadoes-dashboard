@@ -185,7 +185,11 @@ function finishInit() {
 
     var geocoder = new esri.dijit.Geocoder({map: _map}, "search");
     geocoder.startup();
-
+	
+	$(".infoIcon").qtip({
+		content:{text:'The Enhanced Fujita Scale measures the relative severity of tornadoes, ranging from EF0, causing light damage, to EF5, leveling buildings and wreaking "inconceivable" damage.'}, 
+		style:{classes: 'qtip-light qtip-rounded qtip-shadow'}
+					});
 	
 }
 

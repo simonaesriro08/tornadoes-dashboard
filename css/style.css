@@ -211,7 +211,7 @@ a:hover{
 	top:0px;
 	left:-230px;
 	height:100%;
-	width:165px;
+	width:180px;
 	z-index:11;
 	background-color:black;
 }
@@ -229,7 +229,7 @@ a:hover{
 
 .info-strip hr {
 	background-color:#3f3f3f;
-	width:100%;
+	width:145px;
 	height:1px;
 	margin-top:2px;
 }
@@ -366,4 +366,12 @@ a:hover{
 	z-index: 200;
 	top: 20px;
 	left: 74px;
+}
+
+.infoIcon {
+	width:19px;
+	height:19px;
+	position:absolute; 
+	left:147px;
+	top:-1px;
 }
