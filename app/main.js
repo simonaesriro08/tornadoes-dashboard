@@ -254,7 +254,7 @@ function presentAtts(atts)
 	$("#lengthValue").html(atts.length);
 	$("#injuriesValue").html(atts.injuries);
 	$("#fatalitiesValue").html(atts.fatalities);
-	$("#propertyLossValue").html(atts.propertyLoss);
+	$("#propertyLossValue").html(Math.round( atts.propertyLoss * 10 ) / 10);
 }
 
 function slideOut()
