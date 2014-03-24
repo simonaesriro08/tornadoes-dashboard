@@ -262,7 +262,7 @@ function slideOut()
 {
 	$("#tornado-info-strip").animate({left: 20});
 	$(".infoIcon").qtip({
-		content:{text:'The Enhanced Fujita Scale measures the relative severity of tornadoes, ranging from EF0, causing light damage, to EF5, leveling buildings and wreaking "inconceivable" damage.'}, 
+		content:{text:'The Enhanced Fujita Scale measures the relative severity of tornadoes, ranging from 0, causing light damage, to 5, leveling buildings and wreaking "inconceivable" damage.'}, 
 		style:{classes: 'qtip-light qtip-rounded qtip-shadow'}
 	});		
 }
