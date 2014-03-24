@@ -255,6 +255,7 @@ function presentAtts(atts)
 	$("#injuriesValue").html(atts.injuries);
 	$("#fatalitiesValue").html(atts.fatalities);
 	$("#propertyLossValue").html(Math.round( atts.propertyLoss * 10 ) / 10);
+	$("#tornado-info-strip").animate({scrollTop: 0}, "slow");
 }
 
 function slideOut()
