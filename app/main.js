@@ -6,7 +6,7 @@ dojo.require("esri.dijit.Geocoder");
 ***************** begin config section ****************
 *******************************************************/
 
-var TITLE = "Twister Dash: Exploring Three Decades of Violent Storms"
+var TITLE = "Twister Dashboard: Exploring Three Decades of Violent Storms"
 var BYLINE = "Although tornadoes can occur throughout the year, prime time for twisters in the U.S. is spring and early summer. Larger symbols show more violent tornadoes. Zoom into the map to see approximate tornado tracks.";
 var FEATURE_SERVICE_URL = "http://services.arcgis.com/nzS0F0zdNLvs7nc8/ArcGIS/rest/services/Tornados_Points/FeatureServer/0";
 var MAP_SERVICE_URL = "http://staging.storymaps.esri.com/arcgis/rest/services/Tornados/Tornados_fwm/MapServer";
@@ -94,7 +94,7 @@ function init() {
 	
 	$("#title").append(TITLE);
 	$("#subtitle").append(BYLINE);
-
+	
 	_map = new esri.Map("map",
 						{
 							basemap:"gray",
@@ -182,9 +182,13 @@ function finishInit() {
 	
 	$(document).keydown(onKeyDown);
 	
-
     var geocoder = new esri.dijit.Geocoder({map: _map}, "search");
     geocoder.startup();
+
+	if(window.top !== window.self) {
+    	_map.disableScrollWheelZoom();
+		$("#tornadoDateValue").css("margin-top",0);
+	}	
 		
 }
 
