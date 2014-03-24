@@ -34,5 +34,6 @@ function SummaryInfoStrip(div)
 		$(_injuries).html(injuries);
 		$(_fatalities).html(fatalities);
 		$(_propertyLoss).html(propertyLoss);
+		$(_div).eq(0).animate({scrollTop: 0}, "slow");
 	}
 }
