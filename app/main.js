@@ -180,15 +180,15 @@ function finishInit() {
 	setTimeout(function(){handleWindowResize()});
 	setTimeout(function(){_homeExtent = _map.extent}, 1000);
 	
-	$(document).keydown(onKeyDown);
-	
     var geocoder = new esri.dijit.Geocoder({map: _map}, "search");
     geocoder.startup();
 
-	if(window.top !== window.self) {
+	if (window.top !== window.self) { // app is embedded
     	_map.disableScrollWheelZoom();
 		$("#tornadoDateValue").css("margin-top",0);
-	}	
+	} else {
+		$(document).keydown(onKeyDown);
+	}
 		
 }
 
