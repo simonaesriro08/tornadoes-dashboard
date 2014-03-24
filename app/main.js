@@ -42,7 +42,7 @@ var _isIE = (navigator.appVersion.indexOf("MSIE") > -1);
 var _homeExtent; // set this in init() if desired; otherwise, it will 
 				 // be the default extent of the web map;
 
-var _isMobile = isMobile();
+var _isMobile = Helper.isMobile();
 
 var _isEmbed = false;
 var _subset;
