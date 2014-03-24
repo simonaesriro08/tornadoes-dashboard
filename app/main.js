@@ -276,7 +276,7 @@ function hoverInfoPos(x,y){
 		$("#hoverInfo").css("left",x+15);
 	}
 	else{
-		$("#hoverInfo").css("left",x-25-($("#hoverInfo").width()));
+		$("#hoverInfo").css("left",x-35-($("#hoverInfo").width()));
 	}
 	if (y >= ($("#hoverInfo").height())+50){
 		$("#hoverInfo").css("top",y-20-($("#hoverInfo").height()));
