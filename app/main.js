@@ -305,11 +305,13 @@ function handleWindowResize()
 	$("#map").width(bNarrow ? $("body").width() : $("body").width() - $("#side-pane").outerWidth());
 	$("#map").height($("body").height());
 	
+	$("#side-pane").width(bNarrow ? $("body").width() : 460);
+
+	$("#bar-strip").height(bDropHeader ? $("body").height() - 20 : $("body").height() - ($("#header").outerHeight() + 20));
+	
 	$("#swap-container").height(bDropHeader ? $("body").height() - 20 : $("body").height() - ($("#header").outerHeight() + 20));
 	$("#swap-container").css("left", $("#bar-strip").outerWidth());
 
-	if (bDropHeader) $("#bar-strip").height($("body").height() - 20);
-	else $("#bar-strip").height($("body").height() - ($("#header").outerHeight() + 20));
 
 	$(".barChart").height($("#bar-strip").innerHeight() - 20);	
 	$(".info-strip").height($("#swap-container").outerHeight()-8);
