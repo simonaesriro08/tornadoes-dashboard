@@ -59,6 +59,7 @@ function BarChart(div, years, callBack)
 		} else {
 			$(".barChart .labelDiv").css("display", "block");
 		}
+		$(".barChart .scaleLabels").width($(_div).width() - 50);
 	}
 	
 	this.setValues = function(hash) 
