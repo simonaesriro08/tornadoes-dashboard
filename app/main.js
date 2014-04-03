@@ -296,16 +296,20 @@ function hoverInfoPos(x,y){
 function handleWindowResize() 
 {
 
-	var bNarrow = $("body").width() < 460; // todo: replace with non literal
+	var bNarrow = $("body").width() < 600; // todo: replace with non literal
 	var bDropHeader = ($("body").height() <= 600) || _isEmbed || bNarrow;
+	
+	$("#mobile-navbar").css("display", bNarrow ? "block" : "none");
+	$("#alert-strip").css("display", bNarrow ? "block" : "none");
+	$("#container").height(bNarrow ? $("body").height() - $("#mobile-navbar").outerHeight() - $("#alert-strip").outerHeight(): $("body").height());
 	
 	$("#side-pane").width(bNarrow ? $("body").width() : 460); // todo: replace with non literal
 	$("#header").css("display", bDropHeader ? "none" : "block")
 
-	$("#bar-strip").height(bDropHeader ? $("body").height() - 20 : $("body").height() - ($("#header").outerHeight() + 20));
-	$("#bar-strip").width($("#side-pane").innerWidth() - $("#swap-container").outerWidth() - 49); // todo: replace with non literal
+	$("#bar-strip").height(bDropHeader ? $("#container").height() - 20 : $("#container").height() - ($("#header").outerHeight() + 20));
+	$("#bar-strip").width(bNarrow ? $("#side-pane").innerWidth() - 39 : $("#side-pane").innerWidth() - $("#swap-container").outerWidth() - 49); // todo: replace with non literal
 	
-	$("#swap-container").height(bDropHeader ? $("body").height() - 20 : $("body").height() - ($("#header").outerHeight() + 20));
+	$("#swap-container").height(bDropHeader ? $("#container").height() - 20 : $("#container").height() - ($("#header").outerHeight() + 20));
 	$("#swap-container").css("left", $("#bar-strip").outerWidth());
 
 	$(".barChart").height($("#bar-strip").innerHeight() - 20);	
@@ -313,7 +317,7 @@ function handleWindowResize()
 
 	$("#map").css("left", bNarrow ? 0 : $("#side-pane").outerWidth());
 	$("#map").width(bNarrow ? $("body").width() : $("body").width() - $("#side-pane").outerWidth());
-	$("#map").height($("body").height());
+	$("#map").height($("#container").height());
 			
 	if (_barChart) _barChart.resize();
 	if (_map) _map.resize();

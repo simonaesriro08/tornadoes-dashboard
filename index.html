@@ -107,62 +107,72 @@
 </head>
 
 <body class="claro">
-        
-    <div id="side-pane">
-    	<div id="header">
-            <h1 id="title"></h1>
-            <h2 id="subtitle"></h2>
-            <ul id="instructions">
-                <li><span>Pan and zoom map</span> to explore; graphs show totals for current map view</li>
-                <li><span>Click on graph</span> to see annual totals</li>
-                <li><span>Click on a tornado</span> for stats about individual twisters</li>
-            </ul>   
-            <div style="width:100%;height:25px">
-                <div id="social">
-                    <a id="msLink" href="http://storymaps.esri.com" target="_blank">A story map </a>
-                    <span class='st_facebook' ></span>
-                    <span class='st_twitter' st_via="EsriStoryMaps"></span>
-                    <span class='st_sharethis'></span>
+
+	<div id="container">
+    	<div id="mobile-navbar">
+        	<select>
+            	<option>Map</option>
+                <option>Bar Chart</option>
+                <option>Year Stats</option>
+            </select>
+        </div>
+        <div id="alert-strip">Note: Statistics apply to the current map extent.</div>    
+        <div id="side-pane">
+            <div id="header">
+                <h1 id="title"></h1>
+                <h2 id="subtitle"></h2>
+                <ul id="instructions">
+                    <li><span>Pan and zoom map</span> to explore; graphs show totals for current map view</li>
+                    <li><span>Click on graph</span> to see annual totals</li>
+                    <li><span>Click on a tornado</span> for stats about individual twisters</li>
+                </ul>   
+                <div style="width:100%;height:25px">
+                    <div id="social">
+                        <a id="msLink" href="http://storymaps.esri.com" target="_blank">A story map </a>
+                        <span class='st_facebook' ></span>
+                        <span class='st_twitter' st_via="EsriStoryMaps"></span>
+                        <span class='st_sharethis'></span>
+                    </div>
+                    <div id="logo"><a id="logoLink" href="http://www.esri.com" target="_blank"><img id="logoImg" src="resources/images/esriGlobeLogow.png" alt="Esri - Home"></a></div>
                 </div>
-                <div id="logo"><a id="logoLink" href="http://www.esri.com" target="_blank"><img id="logoImg" src="resources/images/esriGlobeLogow.png" alt="Esri - Home"></a></div>
+            </div>
+            <div id="bar-strip">
+                <div class="barChart"></div>
+            </div>
+            <div id="swap-container">
+                <div id="tornado-info-strip" class="info-strip">
+                    <div id="tornadoDateValue" class="infoValue" style="font-size:36px;margin-top:10px">May 23, 2011</div>
+                    <div id="infoCaption" class="dateCaption">Tornado Date</div>
+                    <div id="fujitaScaleValue" class="superBigGreenText">5</div>
+                    <hr />
+                    <div class="infoCaption" style="position:relative">Enhanced Fujita Scale<img class="infoIcon" src="resources/images/info-icon.png"/></div>
+                    <div id="lengthValue" class="infoValue">63.1</div>
+                    <hr />
+                    <div class="infoCaption">Length (miles)</div>
+                    <div id="injuriesValue" class="infoValue"></div>
+                    <hr />
+                    <div class="infoCaption">Injuries</div>
+                    <div id="fatalitiesValue" class="infoValue"></div>
+                    <hr />
+                    <div class="infoCaption">Fatalities</div>
+                    <div id="propertyLossValue" class="infoValue"></div>
+                    <hr />
+                    <div class="infoCaption">Property Loss ($millions)</div>
+                </div>
+                <div id="summary-info-strip" class="info-strip"></div>
             </div>
         </div>
-        <div id="bar-strip">
-            <div class="barChart"></div>
-        </div>
-        <div id="swap-container">
-            <div id="tornado-info-strip" class="info-strip">
-                <div id="tornadoDateValue" class="infoValue" style="font-size:36px;margin-top:10px">May 23, 2011</div>
-                <div id="infoCaption" class="dateCaption">Tornado Date</div>
-                <div id="fujitaScaleValue" class="superBigGreenText">5</div>
-                <hr />
-                <div class="infoCaption" style="position:relative">Enhanced Fujita Scale<img class="infoIcon" src="resources/images/info-icon.png"/></div>
-                <div id="lengthValue" class="infoValue">63.1</div>
-                <hr />
-                <div class="infoCaption">Length (miles)</div>
-                <div id="injuriesValue" class="infoValue"></div>
-                <hr />
-                <div class="infoCaption">Injuries</div>
-                <div id="fatalitiesValue" class="infoValue"></div>
-                <hr />
-                <div class="infoCaption">Fatalities</div>
-                <div id="propertyLossValue" class="infoValue"></div>
-                <hr />
-                <div class="infoCaption">Property Loss ($millions)</div>
-            </div>
-            <div id="summary-info-strip" class="info-strip"></div>
-        </div>
-    </div>
-    <div id="map">
-        <div id="zoomToggle">
-            <img id="zoomIn" src="resources/images/ZoomLight_01.png">
-            <img id="zoomExtent" src="resources/images/ZoomHome.png">
-            <img id="zoomOut" src="resources/images/ZoomLight_03.png">
-        </div><!--?zoomToggle-->
-        <div id="hoverInfo"></div>
-        <div id="loadTime" style="visibility:hidden;position:absolute;top:15px;right:60px;background-color:white;z-index:103;padding:10px"></div>
-        <div id="search"></div>
-    </div><!--mapPane-->
+        <div id="map">
+            <div id="zoomToggle">
+                <img id="zoomIn" src="resources/images/ZoomLight_01.png">
+                <img id="zoomExtent" src="resources/images/ZoomHome.png">
+                <img id="zoomOut" src="resources/images/ZoomLight_03.png">
+            </div><!--?zoomToggle-->
+            <div id="hoverInfo"></div>
+            <div id="loadTime" style="visibility:hidden;position:absolute;top:15px;right:60px;background-color:white;z-index:103;padding:10px"></div>
+            <div id="search"></div>
+        </div><!--mapPane-->
+    </div> <!--container-->
    
     <div id="whiteOut" style="position:absolute;width:100%;height:100%;background-color:#FFF;z-index:2000;top:0px">
     	<div id="loaderFrame">
