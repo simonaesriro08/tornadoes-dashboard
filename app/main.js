@@ -296,14 +296,14 @@ function hoverInfoPos(x,y){
 function handleWindowResize() 
 {
 
-	var bNarrow = $("body").width() < 460;	
+	var bNarrow = $("body").width() < 460; // todo: replace with non literal
 	var bDropHeader = ($("body").height() <= 600) || _isEmbed || bNarrow;
 	
-	$("#side-pane").width(bNarrow ? $("body").width() : 460);
+	$("#side-pane").width(bNarrow ? $("body").width() : 460); // todo: replace with non literal
 	$("#header").css("display", bDropHeader ? "none" : "block")
 
 	$("#bar-strip").height(bDropHeader ? $("body").height() - 20 : $("body").height() - ($("#header").outerHeight() + 20));
-	$("#bar-strip").width($("#side-pane").innerWidth() - $("#swap-container").outerWidth() - 49);
+	$("#bar-strip").width($("#side-pane").innerWidth() - $("#swap-container").outerWidth() - 49); // todo: replace with non literal
 	
 	$("#swap-container").height(bDropHeader ? $("body").height() - 20 : $("body").height() - ($("#header").outerHeight() + 20));
 	$("#swap-container").css("left", $("#bar-strip").outerWidth());
