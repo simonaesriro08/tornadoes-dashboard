@@ -295,15 +295,16 @@ function hoverInfoPos(x,y){
 
 function handleWindowResize() 
 {
-
-	if (($("body").height() <= 600) || _isEmbed) $("#header").css("display", "none");
-	else $("#header").css("display", "block");
+	
+	var bDropHeader = ($("body").height() <= 600) || _isEmbed;
+	
+	$("#header").css("display", bDropHeader ? "none" : "block")
 
 	$("#map").css("left", $("#side-pane").outerWidth());
 	$("#map").width($("body").width() - $("#side-pane").outerWidth());
 	$("#map").height($("body").height());
 
-	if ($("#header").css("display") == "none") $("#bar-strip").height($("body").height() - 20);
+	if (bDropHeader) $("#bar-strip").height($("body").height() - 20);
 	else $("#bar-strip").height($("body").height() - ($("#header").outerHeight() + 20));
 
 	$(".barChart").height($("#bar-strip").innerHeight() - 20);	
@@ -314,8 +315,7 @@ function handleWindowResize()
 	$("#swap-container").css("left", ($("#bar-strip").outerWidth()));
 	
 	$(".info-strip").height($("#swap-container").outerHeight()-8);
-	
-	
+		
 	if (_barChart) _barChart.resize();
 	if (_map) _map.resize();
 	
