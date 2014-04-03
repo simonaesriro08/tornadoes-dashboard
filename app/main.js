@@ -295,25 +295,23 @@ function hoverInfoPos(x,y){
 
 function handleWindowResize() 
 {
-	
-	var bDropHeader = ($("body").height() <= 600) || _isEmbed;
+
+	var bNarrow = $("body").width() < 600;	
+	var bDropHeader = ($("body").height() <= 600) || _isEmbed || bNarrow;
 	
 	$("#header").css("display", bDropHeader ? "none" : "block")
 
-	$("#map").css("left", $("#side-pane").outerWidth());
-	$("#map").width($("body").width() - $("#side-pane").outerWidth());
+	$("#map").css("left", bNarrow ? 0 : $("#side-pane").outerWidth());
+	$("#map").width(bNarrow ? $("body").width() : $("body").width() - $("#side-pane").outerWidth());
 	$("#map").height($("body").height());
+	
+	$("#swap-container").height(bDropHeader ? $("body").height() - 20 : $("body").height() - ($("#header").outerHeight() + 20));
+	$("#swap-container").css("left", $("#bar-strip").outerWidth());
 
 	if (bDropHeader) $("#bar-strip").height($("body").height() - 20);
 	else $("#bar-strip").height($("body").height() - ($("#header").outerHeight() + 20));
 
 	$(".barChart").height($("#bar-strip").innerHeight() - 20);	
-	
-	if ($("#header").css("display") == "none") $("#swap-container").height($("body").height() - 20);
-	else $("#swap-container").height($("body").height() - ($("#header").outerHeight() + 20));
-	
-	$("#swap-container").css("left", ($("#bar-strip").outerWidth()));
-	
 	$(".info-strip").height($("#swap-container").outerHeight()-8);
 		
 	if (_barChart) _barChart.resize();
