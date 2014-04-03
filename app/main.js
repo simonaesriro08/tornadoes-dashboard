@@ -296,26 +296,25 @@ function hoverInfoPos(x,y){
 function handleWindowResize() 
 {
 
-	var bNarrow = $("body").width() < 600;	
+	var bNarrow = $("body").width() < 460;	
 	var bDropHeader = ($("body").height() <= 600) || _isEmbed || bNarrow;
 	
+	$("#side-pane").width(bNarrow ? $("body").width() : 460);
 	$("#header").css("display", bDropHeader ? "none" : "block")
 
-	$("#map").css("left", bNarrow ? 0 : $("#side-pane").outerWidth());
-	$("#map").width(bNarrow ? $("body").width() : $("body").width() - $("#side-pane").outerWidth());
-	$("#map").height($("body").height());
-	
-	$("#side-pane").width(bNarrow ? $("body").width() : 460);
-
 	$("#bar-strip").height(bDropHeader ? $("body").height() - 20 : $("body").height() - ($("#header").outerHeight() + 20));
+	$("#bar-strip").width($("#side-pane").innerWidth() - $("#swap-container").outerWidth() - 49);
 	
 	$("#swap-container").height(bDropHeader ? $("body").height() - 20 : $("body").height() - ($("#header").outerHeight() + 20));
 	$("#swap-container").css("left", $("#bar-strip").outerWidth());
 
-
 	$(".barChart").height($("#bar-strip").innerHeight() - 20);	
 	$(".info-strip").height($("#swap-container").outerHeight()-8);
-		
+
+	$("#map").css("left", bNarrow ? 0 : $("#side-pane").outerWidth());
+	$("#map").width(bNarrow ? $("body").width() : $("body").width() - $("#side-pane").outerWidth());
+	$("#map").height($("body").height());
+			
 	if (_barChart) _barChart.resize();
 	if (_map) _map.resize();
 	
