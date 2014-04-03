@@ -311,6 +311,8 @@ function handleWindowResize()
 	if ($("#header").css("display") == "none") $("#swap-container").height($("body").height() - 20);
 	else $("#swap-container").height($("body").height() - ($("#header").outerHeight() + 20));
 	
+	$("#swap-container").css("left", ($("#bar-strip").outerWidth()));
+	
 	$(".info-strip").height($("#swap-container").outerHeight()-8);
 	
 	
