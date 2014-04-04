@@ -92,6 +92,8 @@ function init() {
         _map.setExtent(_homeExtent);
     });
 	
+	$("#selectNav").change(handleNav);
+	
 	$("#title").append(TITLE);
 	$("#subtitle").append(BYLINE);
 	
@@ -310,7 +312,7 @@ function handleWindowResize()
 	$("#bar-strip").width(bNarrow ? $("#side-pane").innerWidth() - 39 : $("#side-pane").innerWidth() - $("#swap-container").outerWidth() - 49); // todo: replace with non literal
 	
 	$("#swap-container").height(bDropHeader ? $("#container").height() - 20 : $("#container").height() - ($("#header").outerHeight() + 20));
-	$("#swap-container").css("left", $("#bar-strip").outerWidth());
+	$("#swap-container").css("left", bNarrow ? 0 : $("#bar-strip").outerWidth());
 
 	$(".barChart").height($("#bar-strip").innerHeight() - 20);	
 	$(".info-strip").height($("#swap-container").outerHeight()-8);
@@ -319,9 +321,34 @@ function handleWindowResize()
 	$("#map").width(bNarrow ? $("body").width() : $("body").width() - $("#side-pane").outerWidth());
 	$("#map").height($("#container").height());
 			
+	if (bNarrow) handleNav();
+	else {
+		$("#side-pane").css("visibility", "visible")
+		$("#bar-strip").css("visibility", "visible");
+		$("#swap-container").css("visibility", "visible");
+	}
+
 	if (_barChart) _barChart.resize();
 	if (_map) _map.resize();
-	
+		
+}
+
+function handleNav()
+{
+	if ($("#selectNav").find(":selected").text() == "Map") {
+		$("#side-pane").css("visibility", "hidden")
+		$("#bar-strip").css("visibility", "hidden");
+		$("#swap-container").css("visibility", "hidden");
+	} else {
+		$("#side-pane").css("visibility", "visible");
+		if ($("#selectNav").find(":selected").text() == "Bar Chart") {
+			$("#swap-container").css("visibility", "hidden");
+			$("#bar-strip").css("visibility", "visible");
+		} else {
+			$("#swap-container").css("visibility", "visible");
+			$("#bar-strip").css("visibility", "hidden");
+		}
+	}
 }
 
 function summarizeByYear(callBack)
