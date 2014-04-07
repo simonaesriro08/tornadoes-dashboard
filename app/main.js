@@ -34,6 +34,8 @@ var _summaryInfoStrip;
 var _spreadSheet;
 var _gisService;
 
+var _bNarrow;
+
 var _dojoReady = false;
 var _jqueryReady = false;
 
@@ -298,30 +300,33 @@ function hoverInfoPos(x,y){
 function handleWindowResize() 
 {
 
-	var bNarrow = $("body").width() < 600; // todo: replace with non literal
-	var bDropHeader = ($("body").height() <= 600) || _isEmbed || bNarrow;
+	var center = _map ? _map.extent.getCenter() : null;
+	var changed = _bNarrow;
+	_bNarrow = $("body").width() < 600; // todo: replace with non literal
+	changed = (changed != _bNarrow);
+	var bDropHeader = ($("body").height() <= 600) || _isEmbed || _bNarrow;
 	
-	$("#mobile-navbar").css("display", bNarrow ? "block" : "none");
-	$("#alert-strip").css("display", bNarrow ? "block" : "none");
-	$("#container").height(bNarrow ? $("body").height() - $("#mobile-navbar").outerHeight() - $("#alert-strip").outerHeight(): $("body").height());
+	$("#mobile-navbar").css("display", _bNarrow ? "block" : "none");
+	$("#alert-strip").css("display", _bNarrow ? "block" : "none");
+	$("#container").height(_bNarrow ? $("body").height() - $("#mobile-navbar").outerHeight() - $("#alert-strip").outerHeight(): $("body").height());
 	
-	$("#side-pane").width(bNarrow ? $("body").width() : 460); // todo: replace with non literal
+	$("#side-pane").width(_bNarrow ? $("body").width() : 460); // todo: replace with non literal
 	$("#header").css("display", bDropHeader ? "none" : "block")
 
 	$("#bar-strip").height(bDropHeader ? $("#container").height() - 20 : $("#container").height() - ($("#header").outerHeight() + 20));
-	$("#bar-strip").width(bNarrow ? $("#side-pane").innerWidth() - 39 : $("#side-pane").innerWidth() - $("#swap-container").outerWidth() - 49); // todo: replace with non literal
+	$("#bar-strip").width(_bNarrow ? $("#side-pane").innerWidth() - 39 : $("#side-pane").innerWidth() - $("#swap-container").outerWidth() - 49); // todo: replace with non literal
 	
 	$("#swap-container").height(bDropHeader ? $("#container").height() - 20 : $("#container").height() - ($("#header").outerHeight() + 20));
-	$("#swap-container").css("left", bNarrow ? 0 : $("#bar-strip").outerWidth());
+	$("#swap-container").css("left", _bNarrow ? 0 : $("#bar-strip").outerWidth());
 
 	$(".barChart").height($("#bar-strip").innerHeight() - 20);	
 	$(".info-strip").height($("#swap-container").outerHeight()-8);
 
-	$("#map").css("left", bNarrow ? 0 : $("#side-pane").outerWidth());
-	$("#map").width(bNarrow ? $("body").width() : $("body").width() - $("#side-pane").outerWidth());
+	$("#map").css("left", _bNarrow ? 0 : $("#side-pane").outerWidth());
+	$("#map").width(_bNarrow ? $("body").width() : $("body").width() - $("#side-pane").outerWidth());
 	$("#map").height($("#container").height());
 			
-	if (bNarrow) handleNav();
+	if (_bNarrow) handleNav();
 	else {
 		$("#side-pane").css("visibility", "visible")
 		$("#bar-strip").css("visibility", "visible");
@@ -330,6 +335,7 @@ function handleWindowResize()
 
 	if (_barChart) _barChart.resize();
 	if (_map) _map.resize();
+	if (changed && center) setTimeout(function(){_map.centerAt(center)},1000)
 		
 }
 
