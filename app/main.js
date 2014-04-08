@@ -94,7 +94,11 @@ function init() {
         _map.setExtent(_homeExtent);
     });
 	
-	$("#selectNav").change(handleNav);
+	$("#mobile-navbar li a").click(function(e) {
+        $("#mobile-navbar li a").removeClass("current");
+        $(this).addClass("current");
+		handleNav();
+    });
 	
 	$("#title").append(TITLE);
 	$("#subtitle").append(BYLINE);
@@ -341,13 +345,13 @@ function handleWindowResize()
 
 function handleNav()
 {
-	if ($("#selectNav").find(":selected").text() == "Map") {
+	if ($("#mobile-navbar ul li a.current").text() == "Map") {
 		$("#side-pane").css("visibility", "hidden")
 		$("#bar-strip").css("visibility", "hidden");
 		$("#swap-container").css("visibility", "hidden");
 	} else {
 		$("#side-pane").css("visibility", "visible");
-		if ($("#selectNav").find(":selected").text() == "Bar Chart") {
+		if ($("#mobile-navbar ul li a.current").text() == "Bar Chart") {
 			$("#swap-container").css("visibility", "hidden");
 			$("#bar-strip").css("visibility", "visible");
 		} else {
