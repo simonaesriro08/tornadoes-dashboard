@@ -173,7 +173,8 @@ function finishInit() {
 	
 	doYear(_barChart.getActiveYear());	
 	$("#year").html(_barChart.getActiveYear());
-
+	$("#alt-year").html(_barChart.getActiveYear());
+	
 	dojo.connect(_map, "onExtentChange", function(event) {
 		if (_count == 0) {
 			summarizeByYear(function(){$("#whiteOut").fadeOut()});
@@ -217,6 +218,7 @@ function onBarChartSelect()
 	retract();
 	doYear(_barChart.getActiveYear());
 	$("#year").html(_barChart.getActiveYear());	
+	$("#alt-year").html(_barChart.getActiveYear());
 	reportYear();
 }
 

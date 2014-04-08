@@ -94,13 +94,30 @@ a:hover{
 }
 
 #alert-strip {
+	position:relative;
 	width:100%;
-	padding-left:20px;
-	padding-right:20px;
 	padding-top:5px;
 	padding-bottom:5px;
 	background-color:#444;
 	color:white;
+	text-align:left;
+	overflow:visible;
+}
+
+#message {
+	text-align:left;
+	position:absolute;
+	left:10px;
+	top:0px;
+}
+
+#alt-year {
+	position:absolute;
+	right:10px;
+	top:-15px;
+	overflow:visible;	
+	z-index:200;
+	font-size:30px;
 }
 
 #side-pane {
@@ -294,7 +311,7 @@ a:hover{
 	font-size:80px;	
 }
 
-.info-strip .infoValue {
+.infoValue {
 	color:#058eb8;
 	font-size:60px;
 	font-family:Georgia, 'Times New Roman', Times, serif;
