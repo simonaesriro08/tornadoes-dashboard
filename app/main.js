@@ -311,8 +311,7 @@ function handleWindowResize()
 	var bDropHeader = ($("body").height() <= 600) || _isEmbed || _bNarrow;
 	
 	$("#mobile-navbar").css("display", _bNarrow ? "block" : "none");
-	$("#alert-strip").css("display", _bNarrow ? "block" : "none");
-	$("#container").height(_bNarrow ? $("body").height() - $("#mobile-navbar").outerHeight() - $("#alert-strip").outerHeight(): $("body").height());
+	$("#container").height(_bNarrow ? $("body").height() - $("#mobile-navbar").outerHeight() : $("body").height());
 	
 	$("#side-pane").width(_bNarrow ? $("body").width() : 460); // todo: replace with non literal
 	$("#header").css("display", bDropHeader ? "none" : "block")
