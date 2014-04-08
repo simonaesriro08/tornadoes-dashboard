@@ -134,7 +134,7 @@ function init() {
 			}
 		} else {
 			// server side identify
-			_gisService.identify(event.mapPoint, _map.extent.getWidth() / 50, _barChart.getActiveYear(), function(atts){
+			_gisService.identify(event.mapPoint, _map.extent.getWidth() / 25, _barChart.getActiveYear(), function(atts){
 				if (atts) {
 					_map.graphics.clear();
 					_map.graphics.add(new esri.Graphic(
@@ -350,14 +350,17 @@ function handleNav()
 		$("#side-pane").css("visibility", "hidden")
 		$("#bar-strip").css("visibility", "hidden");
 		$("#swap-container").css("visibility", "hidden");
+		$("#message").html("Showing tornadoes for current year.");
 	} else {
 		$("#side-pane").css("visibility", "visible");
-		if ($("#mobile-navbar ul li a.current").text() == "Bar Chart") {
+		if ($("#mobile-navbar ul li a.current").text() == "Compare") {
 			$("#swap-container").css("visibility", "hidden");
 			$("#bar-strip").css("visibility", "visible");
+			$("#message").html("Values for current map extent.");
 		} else {
 			$("#swap-container").css("visibility", "visible");
 			$("#bar-strip").css("visibility", "hidden");
+			$("#message").html("Values for current map extent.");
 		}
 	}
 }
