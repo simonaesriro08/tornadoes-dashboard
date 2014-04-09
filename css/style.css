@@ -276,14 +276,16 @@ a:hover{
 }
 
 /* alt info */
+/* TODO: Refactor with info-strip */
 
 #alt-info {
 	width:100%;
 	height:100px;
-	background-color:white;
+	background-color:#444;
 	position:absolute;
 	bottom:-100px;
 	z-index:203;
+	font-family:Arial, Helvetica, sans-serif;
 }
 
 /* info-strip stuff */
@@ -315,7 +317,7 @@ a:hover{
 	margin-top:2px;
 }
 
-.info-strip .superBigGreenText {
+.superBigGreenText {
 	color: #02acab;
 	font-family:Georgia, 'Times New Roman', Times, serif;
 	font-size:80px;	
@@ -327,7 +329,7 @@ a:hover{
 	font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
-.info-strip .infoCaption {
+.infoCaption {
 	color: #bababa;
 }
 
@@ -336,7 +338,7 @@ a:hover{
 	color:white;
 }
 
-.info-strip .dateCaption {
+.dateCaption {
 	font-size:14px;
 	color:white;
 }

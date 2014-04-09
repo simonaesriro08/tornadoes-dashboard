@@ -1,11 +1,37 @@
 function CompactInfoStrip(div)
 {
 	var _div = div;
+	
+	var ul = $("<ul></ul>");
 
 	var _date = $("<div class='infoValue'></div>");
+	var _scale = $("<div class='superBigGreenText'></div>");
 
-	$(_div).append(_date);
-	$(_div).append("<div class='dateCaption'>Tornado Date</div>");
+	var li = $("<li></li>");
+	$(li).append(_date)
+	$(li).append("<div class='dateCaption'>Tornado Date</div>");
+	$(ul).append(li);
+	
+	var li = $("<li></li>");
+	$(li).append(_scale);
+	$(li).append("<div class='infoCaption'>Enhanced Fujita Scale</div>");
+	$(ul).append(li);
+	
+	$(ul).find(".infoValue").css("font-size", 40);
+	$(ul).find(".superBigGreenText").css("font-size", 60);
+	$(ul).children("li").css("float", "left");
+	$(ul).children("li").css("padding-left", 20);
+	$(ul).children("li").height(90);
+	$(ul).children("li").width(150);
+	$(ul).children("li").css("position", "relative");
+
+	$(ul).find(".dateCaption").css("position", "absolute");
+	$(ul).find(".dateCaption").css("bottom", 0);
+
+	$(ul).find(".infoCaption").css("position", "absolute");
+	$(ul).find(".infoCaption").css("bottom", 0);
+	
+	$(_div).append(ul);
 
 	/*
 		
@@ -36,6 +62,7 @@ function CompactInfoStrip(div)
 	this.updateInfo = function(atts)
 	{
 		$(_date).html(atts.date);
+		$(_scale).html(atts.fujitaScale);
 		/*
 		$("#tornadoDateValue").html(atts.date);
 		$("#fujitaScaleValue").html(atts.fujitaScale);
