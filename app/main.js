@@ -50,6 +50,7 @@ var _isEmbed = false;
 var _subset;
 
 var _count = 0;
+var _compactInfoStrip;
 
 dojo.addOnLoad(function() {_dojoReady = true;init()});
 jQuery(document).ready(function() {_jqueryReady = true;init()});
@@ -78,6 +79,7 @@ function init() {
 	_barChart = new BarChart($(".barChart").eq(0), arrYears, onBarChartSelect);
 
 	_summaryInfoStrip = new SummaryInfoStrip($("#summary-info-strip").eq(0));
+	_compactInfoStrip = new CompactInfoStrip($("#alt-info").eq(0));
 	
 	// jQuery event assignment
 	
@@ -258,8 +260,10 @@ function onTornadoClick(graphic)
 		fatalities: graphic.attributes[CSV_FIELDNAME_FATALITIES], 
 		propertyLoss: graphic.attributes[CSV_FIELDNAME_PROPERTYLOSS]
 	});
-		slideOut();
-	}
+	
+	slideOut();
+	
+}
 
 function presentAtts(atts)
 {
@@ -270,6 +274,9 @@ function presentAtts(atts)
 	$("#fatalitiesValue").html(atts.fatalities);
 	$("#propertyLossValue").html(Math.round( atts.propertyLoss * 10 ) / 10);
 	$("#tornado-info-strip").animate({scrollTop: 0}, "slow");
+	
+	_compactInfoStrip.updateInfo(atts);
+	
 }
 
 function slideOut()
@@ -339,6 +346,8 @@ function handleWindowResize()
 		$("#bar-strip").css("visibility", "visible");
 		$("#swap-container").css("visibility", "visible");
 		$("#alt-info").css("display", "none");
+		$("#search").css("display", "block");	
+		$("#zoomToggle").css("display", "block");
 	}
 
 	if (_barChart) _barChart.resize();
@@ -367,6 +376,8 @@ function handleNav()
 		}
 	}
 	$("#alt-info").css("display", "block");
+	$("#search").css("display", "none");
+	$("#zoomToggle").css("display", "none");
 }
 
 function summarizeByYear(callBack)
