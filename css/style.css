@@ -275,6 +275,16 @@ a:hover{
 	border-left-width:thin;
 }
 
+/* alt info */
+
+#alt-info {
+	width:100%;
+	height:100px;
+	background-color:white;
+	position:absolute;
+	bottom:-100px;
+	z-index:203;
+}
 
 /* info-strip stuff */
 

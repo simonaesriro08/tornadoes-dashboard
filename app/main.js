@@ -258,8 +258,8 @@ function onTornadoClick(graphic)
 		fatalities: graphic.attributes[CSV_FIELDNAME_FATALITIES], 
 		propertyLoss: graphic.attributes[CSV_FIELDNAME_PROPERTYLOSS]
 	});
-	slideOut();
-}
+		slideOut();
+	}
 
 function presentAtts(atts)
 {
@@ -278,12 +278,14 @@ function slideOut()
 	$(".infoIcon").qtip({
 		content:{text:'The Enhanced Fujita Scale measures the relative severity of tornadoes, ranging from 0, causing light damage, to 5, leveling buildings and wreaking "inconceivable" damage.'}, 
 		style:{classes: 'qtip-light qtip-rounded qtip-shadow'}
-	});		
+	});
+	$("#alt-info").animate({bottom:0});		
 }
 
 function retract()
 {
 	$("#tornado-info-strip").animate({left: -230});
+	$("#alt-info").animate({bottom:-100});	
 }
 
 function hoverInfoPos(x,y){
@@ -336,6 +338,7 @@ function handleWindowResize()
 		$("#side-pane").css("visibility", "visible")
 		$("#bar-strip").css("visibility", "visible");
 		$("#swap-container").css("visibility", "visible");
+		$("#alt-info").css("display", "none");
 	}
 
 	if (_barChart) _barChart.resize();
@@ -363,6 +366,7 @@ function handleNav()
 			$("#message").html("Values for current map extent.");
 		}
 	}
+	$("#alt-info").css("display", "block");
 }
 
 function summarizeByYear(callBack)
