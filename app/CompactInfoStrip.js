@@ -31,7 +31,13 @@ function CompactInfoStrip(div)
 	$(ul).find(".infoCaption").css("position", "absolute");
 	$(ul).find(".infoCaption").css("bottom", 0);
 	
-	$(_div).append(ul);
+	var scroller = $("<div></div>");
+	$(scroller).append(ul);
+	$(scroller).width(1000);
+	$(scroller).height(100);
+	$(scroller).css("position", "absolute");
+	
+	$(_div).append(scroller);
 
 	/*
 		

@@ -34,7 +34,7 @@ var _summaryInfoStrip;
 var _spreadSheet;
 var _gisService;
 
-var _bNarrow;
+var _bNarrow = false;
 
 var _dojoReady = false;
 var _jqueryReady = false;
@@ -51,6 +51,7 @@ var _subset;
 
 var _count = 0;
 var _compactInfoStrip;
+var _scroll;
 
 dojo.addOnLoad(function() {_dojoReady = true;init()});
 jQuery(document).ready(function() {_jqueryReady = true;init()});
@@ -80,6 +81,7 @@ function init() {
 
 	_summaryInfoStrip = new SummaryInfoStrip($("#summary-info-strip").eq(0));
 	_compactInfoStrip = new CompactInfoStrip($("#alt-info").eq(0));
+	_scroll = new IScroll("#alt-info",{ scrollX: true, scrollY: false, mouseWheel: true });
 	
 	// jQuery event assignment
 	
@@ -96,11 +98,13 @@ function init() {
         _map.setExtent(_homeExtent);
     });
 	
-	$("#mobile-navbar li a").click(function(e) {
-        $("#mobile-navbar li a").removeClass("current");
-        $(this).addClass("current");
-		handleNav();
-    });
+	$("#alt-year").click(function(e) {
+		if (parseInt($("#side-pane").css("top")) == 0) {
+			$("#side-pane").animate({top:$("body").height()});
+		} else {
+			$("#side-pane").animate({top:0});
+		}
+	});
 	
 	$("#title").append(TITLE);
 	$("#subtitle").append(BYLINE);
@@ -222,6 +226,7 @@ function onBarChartSelect()
 	$("#year").html(_barChart.getActiveYear());	
 	$("#alt-year").html(_barChart.getActiveYear());
 	reportYear();
+	if (_bNarrow) setTimeout(function(){$("#side-pane").animate({top:$("body").height()})}, 500);
 }
 
 function doYear(year)
@@ -340,10 +345,14 @@ function handleWindowResize()
 	$("#map").width(_bNarrow ? $("body").width() : $("body").width() - $("#side-pane").outerWidth());
 	$("#map").height($("#container").height());
 			
-	if (_bNarrow) handleNav();
-	else {
-		$("#side-pane").css("visibility", "visible")
-		$("#bar-strip").css("visibility", "visible");
+	if (_bNarrow) {
+		$("#swap-container").css("visibility", "hidden");
+		$("#message").html("Map shows selected year.");		
+		$("#alt-info").css("display", "block");
+		$("#search").css("display", "none");
+		$("#zoomToggle").css("display", "none");
+	} else {
+		$("#side-pane").css("top", 0)
 		$("#swap-container").css("visibility", "visible");
 		$("#alt-info").css("display", "none");
 		$("#search").css("display", "block");	
@@ -352,33 +361,11 @@ function handleWindowResize()
 
 	if (_barChart) _barChart.resize();
 	if (_map) _map.resize();
-	if (changed && center) setTimeout(function(){_map.centerAt(center)},1000)
+	if (changed && center) setTimeout(function(){_map.centerAt(center)},1000);
+	if (changed && _bNarrow) {$("#side-pane").css("top", $("body").height())}
 		
 }
 
-function handleNav()
-{
-	if ($("#mobile-navbar ul li a.current").text() == "Map") {
-		$("#side-pane").css("visibility", "hidden")
-		$("#bar-strip").css("visibility", "hidden");
-		$("#swap-container").css("visibility", "hidden");
-		$("#message").html("Showing tornadoes for current year.");
-	} else {
-		$("#side-pane").css("visibility", "visible");
-		if ($("#mobile-navbar ul li a.current").text() == "Compare") {
-			$("#swap-container").css("visibility", "hidden");
-			$("#bar-strip").css("visibility", "visible");
-			$("#message").html("Values for current map extent.");
-		} else {
-			$("#swap-container").css("visibility", "visible");
-			$("#bar-strip").css("visibility", "hidden");
-			$("#message").html("Values for current map extent.");
-		}
-	}
-	$("#alt-info").css("display", "block");
-	$("#search").css("display", "none");
-	$("#zoomToggle").css("display", "none");
-}
 
 function summarizeByYear(callBack)
 {

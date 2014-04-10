@@ -65,39 +65,12 @@ a:hover{
 	font-family: Arial,Helvetica,sans-serif;
 }
 
-#mobile-navbar ul {
-	list-style-type: none;
-	margin-left:3%;
-	width:94%;
-	height:30px;
-}
 
-#mobile-navbar ul li {
-	display: inline;
-	width: 33%;
-	float:left;
-}
-
-#mobile-navbar ul li a {
-	font-weight: 400;
-	font-size: 1.17em;
-	cursor:pointer;
-}
-
-#mobile-navbar ul li a:hover {
-	text-decoration:none;
-}
-
-#mobile-navbar ul li a.current {
-	color:white;
-	font-weight:bold;
-}
 
 #alert-strip {
-	position:relative;
+	position:absolute;
+	top:25px;
 	width:100%;
-	padding-top:5px;
-	padding-bottom:5px;
 	background-color:#444;
 	color:white;
 	text-align:left;
@@ -114,10 +87,11 @@ a:hover{
 #alt-year {
 	position:absolute;
 	right:10px;
-	top:-15px;
+	top:-25px;
 	overflow:visible;	
 	z-index:200;
-	font-size:30px;
+	font-size:50px;
+	cursor:pointer;
 }
 
 #side-pane {
@@ -286,6 +260,7 @@ a:hover{
 	bottom:-100px;
 	z-index:203;
 	font-family:Arial, Helvetica, sans-serif;
+	overflow:visible;
 }
 
 /* info-strip stuff */
