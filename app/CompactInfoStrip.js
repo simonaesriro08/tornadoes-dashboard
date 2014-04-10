@@ -8,6 +8,8 @@ function CompactInfoStrip(div)
 
 	var _date = $("<div class='infoValue'></div>");
 	var _scale = $("<div class='superBigGreenText'></div>");
+	var _injuries = $("<div class='infoValue'></div>");
+	var _fatalities = $("<div class='infoValue'></div>");
 
 	var li = $("<li></li>");
 	$(li).append(_date)
@@ -17,6 +19,16 @@ function CompactInfoStrip(div)
 	var li = $("<li></li>");
 	$(li).append(_scale);
 	$(li).append("<div class='infoCaption'>Enhanced Fujita Scale</div>");
+	$(ul).append(li);
+
+	var li = $("<li></li>");
+	$(li).append(_injuries);
+	$(li).append("<div class='infoCaption'>Injuries</div>");
+	$(ul).append(li);
+
+	var li = $("<li></li>");
+	$(li).append(_fatalities);
+	$(li).append("<div class='infoCaption'>Fatalities</div>");
 	$(ul).append(li);
 	
 	$(ul).find(".infoValue").css("font-size", 40);
@@ -46,6 +58,8 @@ function CompactInfoStrip(div)
 	{
 		$(_date).html(atts.date);
 		$(_scale).html(atts.fujitaScale);
+		$(_injuries).html(atts.injuries);
+		$(_fatalities).html(atts.fatalities);
 		_scroll.scrollTo(0,0,1000, IScroll.utils.ease.quadratic);
 		/*
 		$("#tornadoDateValue").html(atts.date);
