@@ -405,7 +405,7 @@ function reportYear()
 		rec = {year: _barChart.getActiveYear(), totalCount: 0, totalInjuries: 0, totalFatalities: 0, totalPropertyLoss: 0}
 	}
 	_summaryInfoStrip.updateInfo(rec.year, rec.totalCount, rec.totalInjuries, rec.totalFatalities, rec.totalPropertyLoss);
-	_compactSummary.updateInfo(rec.totalCount);
+	_compactSummary.updateInfo(rec.totalCount, rec.totalInjuries, rec.totalFatalities, rec.totalPropertyLoss);
 }
 
 function reportLoadTime()
