@@ -51,7 +51,6 @@ var _subset;
 
 var _count = 0;
 var _compactInfoStrip;
-var _scroll;
 
 dojo.addOnLoad(function() {_dojoReady = true;init()});
 jQuery(document).ready(function() {_jqueryReady = true;init()});
@@ -81,7 +80,6 @@ function init() {
 
 	_summaryInfoStrip = new SummaryInfoStrip($("#summary-info-strip").eq(0));
 	_compactInfoStrip = new CompactInfoStrip($("#alt-info").eq(0));
-	_scroll = new IScroll("#alt-info",{ scrollX: true, scrollY: false, mouseWheel: true });
 	
 	// jQuery event assignment
 	
