@@ -66,7 +66,27 @@ a:hover{
 
 #alt-summary {
 	left:10px;
+	top:-10px;
 	position:absolute;
+	cursor:pointer;
+}
+
+#container-alt-year {
+	height:100px;
+	width:150px;
+	position:absolute;
+	right:0px;
+	top:0px;
+	cursor:pointer;
+}
+
+#container-alt-summary {
+	height:100px;
+	width:150px;
+	position:absolute;
+	left:0px;
+	top:0px;
+	cursor:pointer;
 }
 
 #alt-year {

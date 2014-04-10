@@ -98,14 +98,14 @@ function init() {
         _map.setExtent(_homeExtent);
     });
 	
-	$("#alt-year").click(function(e) {
+	$("#container-alt-year").click(function(e) {
 		if (parseInt($("#side-pane").css("top")) == 0) {
 			$("#side-pane").animate({top:$("body").height()});
 		} else {
 			$("#side-pane").animate({top:0});
 		}
 	});
-	
+
 	$("#title").append(TITLE);
 	$("#subtitle").append(BYLINE);
 	
@@ -351,7 +351,7 @@ function handleWindowResize()
 		$("#search").css("display", "none");
 		$("#zoomToggle").css("display", "none");
 	} else {
-		$("#side-pane").css("top", 0)
+		$("#side-pane").css("top", 0);
 		$("#swap-container").css("visibility", "visible");
 		$("#alt-info").css("display", "none");
 		$("#search").css("display", "block");	
