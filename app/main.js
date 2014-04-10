@@ -324,8 +324,8 @@ function handleWindowResize()
 	changed = (changed != _bNarrow);
 	var bDropHeader = ($("body").height() <= 600) || _isEmbed || _bNarrow;
 	
-	$("#mobile-navbar").css("display", _bNarrow ? "block" : "none");
-	$("#container").height(_bNarrow ? $("body").height() - $("#mobile-navbar").outerHeight() : $("body").height());
+	$("#mobile-header").css("display", _bNarrow ? "block" : "none");
+	$("#container").height(_bNarrow ? $("body").height() - $("#mobile-header").outerHeight() : $("body").height());
 	
 	$("#side-pane").width(_bNarrow ? $("body").width() : 460); // todo: replace with non literal
 	$("#header").css("display", bDropHeader ? "none" : "block")
