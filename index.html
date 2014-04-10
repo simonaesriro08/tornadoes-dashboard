@@ -103,6 +103,7 @@
 <script type="text/javascript" src="app/DynamicServiceMapManager.js"></script>
 <script type="text/javascript" src="app/SummaryInfoStrip.js"></script>
 <script type="text/javascript" src="app/CompactInfoStrip.js"></script>
+<script type="text/javascript" src="app/CompactSummaryInfoStrip.js"></script>
 <script type="text/javascript" src="app/Helper.js"></script>
 <script type="text/javascript" src="app/main.js"></script>
 
@@ -111,10 +112,8 @@
 <body class="claro">
 
     <div id="mobile-header">
-	    <div id="alert-strip">
-        	<div id="message">Showing tornadoes for current year.</div>
-            <div id="alt-year" class="infoValue">3000</div><div id="toggleArrow" style="position:absolute;right:60px;bottom:-37px;color:#bababa">&#x25BC</div>
-        </div>    
+    	<div id="alt-summary"></div>
+        <div id="alt-year" class="infoValue">3000</div><div id="toggleArrow" style="position:absolute;right:60px;top:60px;color:#bababa">&#x25BC</div>    
     </div>
 
 	<div id="container">

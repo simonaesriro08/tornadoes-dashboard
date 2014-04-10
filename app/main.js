@@ -51,6 +51,7 @@ var _subset;
 
 var _count = 0;
 var _compactInfoStrip;
+var _compactSummary;
 
 dojo.addOnLoad(function() {_dojoReady = true;init()});
 jQuery(document).ready(function() {_jqueryReady = true;init()});
@@ -80,6 +81,7 @@ function init() {
 
 	_summaryInfoStrip = new SummaryInfoStrip($("#summary-info-strip").eq(0));
 	_compactInfoStrip = new CompactInfoStrip($("#alt-info").eq(0));
+	_compactSummary = new CompactSummaryInfoStrip($("#alt-summary").eq(0));
 	
 	// jQuery event assignment
 	
@@ -345,7 +347,6 @@ function handleWindowResize()
 			
 	if (_bNarrow) {
 		$("#swap-container").css("visibility", "hidden");
-		$("#message").html("Map shows selected year.");		
 		$("#alt-info").css("display", "block");
 		$("#search").css("display", "none");
 		$("#zoomToggle").css("display", "none");
@@ -403,7 +404,8 @@ function reportYear()
 	} else {
 		rec = {year: _barChart.getActiveYear(), totalCount: 0, totalInjuries: 0, totalFatalities: 0, totalPropertyLoss: 0}
 	}
-	_summaryInfoStrip.updateInfo(rec.year, rec.totalCount, rec.totalInjuries, rec.totalFatalities, rec.totalPropertyLoss)
+	_summaryInfoStrip.updateInfo(rec.year, rec.totalCount, rec.totalInjuries, rec.totalFatalities, rec.totalPropertyLoss);
+	_compactSummary.updateInfo(rec.totalCount);
 }
 
 function reportLoadTime()
