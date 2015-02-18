@@ -300,22 +300,6 @@ function retract()
 	$("#alt-info").animate({bottom:-100});	
 }
 
-function hoverInfoPos(x,y){
-	if (x <= ($("#map").width())-230){
-		$("#hoverInfo").css("left",x+15);
-	}
-	else{
-		$("#hoverInfo").css("left",x-35-($("#hoverInfo").width()));
-	}
-	if (y >= ($("#hoverInfo").height())+50){
-		$("#hoverInfo").css("top",y-20-($("#hoverInfo").height()));
-	}
-	else{
-		$("#hoverInfo").css("top",y-15+($("#hoverInfo").height()));
-	}
-	$("#hoverInfo").show();
-}
-
 
 function handleWindowResize() 
 {
